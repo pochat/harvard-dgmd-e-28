@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maps</title>
+</head>
+<body>
+    
+    <script>
+        names = ["mario", "luigi", "peach", "toad", "yoshi"];
+
+        upperCaseNames = names.map(upperCase);
+        document.write("<ul><li>" + upperCaseNames.join("</li><li>") + "</li></ul>");
+
+        function upperCase(name) {
+            return name.toLowerCase();
+        }
+    </script>
+
+</body>
+</html>

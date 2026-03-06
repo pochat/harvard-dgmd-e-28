@@ -1,0 +1,23 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Question 13</title>
+</head>
+<body>
+    <script>
+myArray = [1,2];
+
+for (i=0; i<5; i++) {
+    sum = myArray[i] + myArray[i+1];
+    myArray.push(sum);
+}
+
+document.write("<ul>");
+for (i=0; i<myArray.length; i++) {
+    document.write("<li>" + myArray[i] + "</li>");
+}
+document.write("</ul>");
+</script>
+</body>
+</html>

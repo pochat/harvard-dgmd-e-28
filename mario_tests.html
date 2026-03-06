@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        myArray = ["mario", "luigi", "peach", "toad", "yoshi"];
+        document.write("<ul>");
+        for (i=0; i<myArray.length; i++) {
+            document.write("<li>" + myArray[i] + "</li>");
+        }
+        document.write("</ul>");
+
+        
+        document.write("<ul>");
+        const myArray2 = myArray.map(item => "<li>" + item.toLowerCase() + "</li>");
+        document.write(myArray2.join(""));
+        document.write("</ul>");
+
+    </script>
+</body>
+</html>

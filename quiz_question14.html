@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Index Finder</title>
+</head>
+<body>
+    <script>
+
+    // Store email
+    strEmail = "mario@gmail.com";
+
+    // Find index of @ symbol and print it
+    atSymbol = strEmail.indexOf("@");
+    document.write("The @ symbol is at index: " + atSymbol + "<br>");
+
+    // Get index where the domain starts and print the domain
+    // I know I can simplify this code but I like to see the steps
+    domainStart = atSymbol + 1;
+    strDomain = strEmail.substring(domainStart);
+
+    document.write("The domain is: " + strDomain);
+
+    </script>
+</body>
+</html>

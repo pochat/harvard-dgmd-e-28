@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hola Mario, let's practice!</h1>
+    
+    <script>
+        const names = ["mario", "sonia", "matisse", "alessi"]
+        document.write("<h2><ul><li>" + names.join("</li><li>") + "</li></ul></h2>")
+    
+        modNames = names.map(name => name.toUpperCase())
+        document.write("<h2><ul><li>" + modNames.join("</li><li>") + "</li></ul></h2>")
+    </script>
+
+    <h2>Let's do an Array.From</h2>
+    <script>
+
+        let text = "AEIOU"
+        document.writeln("Original text: " + text)
+
+        document.write("<div>")
+            const modArray = Array.from(text)
+            document.write("Array from: " + modArray)
+        document.write("</div>")
+
+    </script>
+    
+    <h2>Array.From with numbers</h2>
+
+    <script>
+        let numbers = "12345"
+        const multiplier = 2
+
+        const sum = Array.from(numbers)
+
+        for (i = 0; i < sum.length; i++) {
+            const result = sum[i] * multiplier
+            document.write("<li>" + sum[i] + " * " + multiplier + " = " + sum[i]* multiplier + "</li>")
+        };
+
+    </script>
+
+    <h2>Let's do a push array</h2>
+
+    <button onclick="askUser()">Click to start</button>
+    <div id="result"> </div>
+
+    <script>
+
+        let askArray = [];
+
+        const askUser = () => {
+
+            let ask = prompt("Enter one word")
+            askArray.push(ask)
+
+            for (i = 0; i < modArray.length; i++) {
+                // document.getElementById("result").innerHTML = "<ol><li>" + askArray.join("<li></li>" + "</li></ol>")
+                document.getElementById("result").innerHTML = "<ol><li>" + askArray.join("</li><li>") + "</li></ol>"
+            }
+        }
+
+    </script>
+</body>
+</html>
