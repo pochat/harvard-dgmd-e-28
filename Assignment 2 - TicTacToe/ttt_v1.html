@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        .box {
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            vertical-align: top;
+            text-align: center;
+            line-height: 100px;
+            font-size: 36px;
+            margin: 5px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .box:hover {
+            background-color: lightblue;
+            cursor: pointer;
+        }
+        .board {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .small-text {
+            font-size: 14px;
+            display: block;
+            margin-top: 20px;
+        }
+        .start-game-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: rgb(204, 241, 204);
+        }
+        .start-game-button:hover {
+            background-color: lightgreen;
+            cursor: pointer;
+        }
+        .player-turn {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: green;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(240, 240, 240);
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="board">
+        <h1>Tic Tac Toe Game</h1>
+        <h2 class="player-turn">X's Turn</h2>
+        <div>
+            <div>
+                <div class="box"></div>
+                <div class="box">X</div>
+                <div class="box">X</div>
+            </div>
+
+            <div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+            </div>
+
+            <div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box">0</div>
+            </div>
+        </div>
+        <button class="start-game-button">Start New Game</button>
+
+        <a class="small-text" href="https://en.wikipedia.org/wiki/Tic-tac-toe" target="_blank">Game Instructions on Wikipedia</a>
+    </div>
+
+</body>
+</html>

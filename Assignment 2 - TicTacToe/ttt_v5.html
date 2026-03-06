@@ -1,0 +1,253 @@
+<!-- Project URL: -->
+<!-- https://pochat.github.io/tic-tac-toe/ttt_v5.html -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        .square {
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            vertical-align: top;
+            text-align: center;
+            line-height: 100px;
+            font-size: 36px;
+            margin: 5px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .square:hover {
+            background-color: lightblue;
+            cursor: pointer;
+        }
+        .board {
+            text-align: center;
+            margin-top: 50px;
+            width: 350px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .small-text {
+            font-size: 14px;
+            display: block;
+            margin-top: 20px;
+        }
+        .start-game-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: rgb(204, 241, 204);
+        }
+        .start-game-button:hover {
+            background-color: lightgreen;
+            cursor: pointer;
+        }
+        .player-turn {
+            font-size: 14px;
+            margin: 0 auto 20px;
+            width: 250px;
+            color: green;
+            border: 1px solid green;
+            border-radius: 10px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(240, 240, 240);
+        }
+
+        body.game-over .square {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+    </style>
+
+    <div class="board">
+        <h1>Tic Tac Toe Game</h1>
+
+        <div class="player-turn">
+            <h2>X's Turn</h2>
+        </div>
+
+        <script>
+
+            // Global parameters
+            moves = [];
+
+
+            // Define the number of squares on the tic tac toe board
+            const NUM_SQUARES = 9;
+
+            // Function to randomly select which player goes first
+            function getRandomPlayerTurn() {
+                    
+                    // Get letters
+                    const playerTurn = "XO";
+
+                    // Get random index
+                    const randomIndex = Math.floor(Math.random() * playerTurn.length);
+
+                    return playerTurn.charAt(randomIndex);
+                
+                }
+
+            function restartGame() {
+
+                // Play sound
+                playStartGameSound();
+
+                // clear the array
+                moves = [];
+                console.log("moves:" + moves);
+
+                // Clear the board
+                for (i = 0; i < NUM_SQUARES; i++) {
+                    document.getElementById("sq" + i).innerHTML = "";
+                }
+                // Pick a new random player turn
+                currentPlayer = getRandomPlayerTurn();
+
+                // Update the player turn display
+                document.querySelector(".player-turn h2").innerHTML = currentPlayer + "'s Turn";
+
+                // Allow the user to press the squares
+                // Web3schools reference: https://www.w3schools.com/howto/howto_js_add_class.asp
+                document.body.classList.remove("game-over");
+            }
+
+            // Don't let the player click after the game is over
+            function dissallow() {
+                document.body.classList.add("game-over");
+            }
+
+            // Winning sound
+            function playWinSound() {
+                const audioWin = new Audio('playWinSound.mp3');
+                audioWin.play();
+            }
+            
+            // Start game sound
+            function playStartGameSound() {
+                const audioWin = new Audio('playairblow.mp3');
+                audioWin.play();
+            }
+            
+            // Pick the first player turn from the random function
+            let currentPlayer = getRandomPlayerTurn();
+
+            window.onload = function() {
+                // Identify which square was clicked
+                for (i = 0; i < NUM_SQUARES; i++) {
+                    document.getElementById("sq" + i).onclick = function() {
+                        
+                        // alert("You clicked on square " + this.id); 
+                        
+                        if (this.innerHTML === "") {
+                            this.innerHTML = currentPlayer;
+                        } else {
+                            // alert("Square already taken! Please choose another square.");
+                            return;
+                        }
+                        if (currentPlayer === "X") {
+                            currentPlayer = "O";
+                        } else {
+                            currentPlayer = "X";
+                        }
+                        
+                        // Update the player turn display
+                        document.querySelector(".player-turn h2").innerHTML = currentPlayer + "'s Turn";
+
+                        // Build the array from the Board
+                        const buildArrayFromBoard = Array.from(document.querySelectorAll('.square'))
+
+                        // Map the array
+                        moves = buildArrayFromBoard.map(eachSquare => {
+                          if (eachSquare.innerHTML === "") {
+                            return "-";
+                          } else {
+                            return eachSquare.innerHTML;
+                          }
+                        });
+
+                        console.log("moves:", moves);
+
+                        const winConditions = [
+
+                            // Three horizontal rows
+                            moves[0] + moves[1] + moves[2], // Top Row
+                            moves[3] + moves[4] + moves[5], // Middle Row
+                            moves[6] + moves[7] + moves[8], // Bottom Row
+                            
+                            // Three vertical columns
+                            moves[0] + moves[3] + moves[6], // Left column
+                            moves[1] + moves[4] + moves[7], // Middle column
+                            moves[2] + moves[5] + moves[8], // Right column
+
+                            // Top left to bottom right diagonal
+                            moves[0] + moves[4] + moves[8],
+
+                            // Bottom right to top right diagonal
+                            moves[6] + moves[4] + moves[2],
+
+                        ]
+                        
+                        // Compare and see if there's a win
+                        for (let i = 0; i < winConditions.length; i++) {
+
+                            if (winConditions[i] === "XXX") {
+                                playWinSound();
+                                setTimeout(() => {
+                                    alert("X wins");
+                                    dissallow();
+                                }, 500); // Add bit of a delay to allow the sound to play
+                                return;
+                            } 
+
+                            if (winConditions[i] === "OOO") {
+                                playWinSound();
+                                setTimeout(() => {
+                                    alert("O wins");
+                                    dissallow();
+                                }, 500); // Add bit of a delay to alloow the sound to play
+                                return;
+                            }                             
+                        }
+                        
+                        // Check if it's a tie
+                        if (!moves.includes("-")) {
+                            alert("It's a tie!");
+                        }
+                    }
+                    
+                };
+            };
+        </script>
+</head>
+
+<body>
+        <script>
+
+            // Render the player for the first time
+            document.querySelector(".player-turn h2").innerHTML = currentPlayer + "'s Turn";
+
+            // draw the tic tac toe board
+            for (i = 0; i < NUM_SQUARES; i++) {
+                document.write("<div class='square' id='sq" + i + "'></div>");
+            }
+
+        </script>
+        
+        <!-- Restart Game Button -->
+        <button onclick="restartGame()" class="start-game-button">Start New Game</button>
+        
+        <!-- Game Instructions Link -->
+        <a class="small-text" href="https://en.wikipedia.org/wiki/Tic-tac-toe" target="_blank">Game Instructions on Wikipedia</a>
+    </div>
+
+</body>
+
+</html>

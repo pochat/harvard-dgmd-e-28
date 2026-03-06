@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice HTML</title>
+</head>
+<body>
+    <h1>Times Table</h1>
+    <script>
+
+        // Ask the user to enter a number
+        const number = parseInt(prompt("Enter a number to see its times table:"));
+
+        // Do the times operations
+        function timesTable(number) {
+            for (let i = 1; i <= 12; i++) {
+                document.write(number + " x " + i + " = " + (number * i) + "<br>");
+            }
+        }
+
+        // Call the function to display the times table
+        timesTable(number);
+    </script>
+</body>
+</html>
