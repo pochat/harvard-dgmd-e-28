@@ -11,17 +11,47 @@
     <h1>Joe's Hotdogs</h1>
     <h2>Part 1: Using an associative array (see slide 155)</h2>
     <script>
-
+        
         menu = [];
         menu["Hotdogs"] = 4
         menu["Fries"] = 3.50
         menu["Soda"] = 1.50
         menu["Sauerkraut"] = 1
-
+        
         // document.write(menu["Fries"])
-
+        
         for (key in menu)
         document.write(key + " $" + menu[key] + " - ")
+    
+    </script>
+
+    <h2>Part 2: Using an object (see slide 157)</h2>
+
+    <script>
+
+        const menu = {
+            Hotdogs: 4,
+            Fries: 3.50,
+            Soda: 1.50,
+            Sauerkraut: 1
+        }
+
+        // document.write (menu['Hotdogs'])
+        // document.write (Object.keys(menu))
+
+        const menuEntries = Object.entries(menu)
+        const menuKeys = Object.keys(menu)
+        const menuValues = Object.values(menu)
+
+        document.write("Menu Entries: " + menuEntries.join(" ") + "<br>")
+        document.write("Menu Keys: " + menuKeys + "<br>")
+        document.write("Menu Values: " + menuValues + "<br>")
+
+        document.write("<br>")
+        document.write("Full menu:")
+        for (i = 0; i < menuKeys.length; i++) {
+            document.write("<ul><li>" + menuKeys[i] + " price: $" + menuValues[i] + "</ul>")
+        }
 
     </script>
 </body>
