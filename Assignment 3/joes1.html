@@ -1,3 +1,6 @@
+<!-- This program uses associative arrays -->
+<!-- Live URL https://pochat.github.io/harvard-dgmd-e-28/Assignment%203/joes1.html -->
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,5 +9,20 @@
 </head>
 <body>
     <h1>Joe's Hotdogs</h1>
+    <h2>Part 1: Using an associative array (see slide 155)</h2>
+    <script>
+
+        menu = [];
+        menu["Hotdogs"] = 4
+        menu["Fries"] = 3.50
+        menu["Soda"] = 1.50
+        menu["Sauerkraut"] = 1
+
+        // document.write(menu["Fries"])
+
+        for (key in menu)
+        document.write(key + " $" + menu[key] + " - ")
+
+    </script>
 </body>
 </html>
