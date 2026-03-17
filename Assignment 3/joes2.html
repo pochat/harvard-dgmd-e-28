@@ -17,7 +17,7 @@
     <select name="selectMenuItems" id="menuItems"></select>
 
     <!-- Shopping Cart -->
-    <button>Add to Cart</button>
+    <button id="addToCartButton" onclick="addToCart()">Add to Cart</button>
 
     <!-- Items inside the cart -->
     <div></div>
@@ -57,7 +57,15 @@
             console.log("Cart Array has:", cartArray);
             
         });
-
+        
+        // Add to Cart function
+        function addToCart() {
+            const selectedIndex = this.selectedIndex;
+            cartArray.push(menuKeys[selectedIndex], menuValues[selectedIndex]);
+            console.log("Cart Array has 2:", cartArray);
+            alert("clicked!")
+            
+        }
         
         
         console.log(menuKeys[1]);
