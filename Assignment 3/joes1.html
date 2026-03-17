@@ -9,7 +9,10 @@
 </head>
 <body>
     <h1>Joe's Hotdogs</h1>
+
+    <!-- Part I -->
     <h2>Part 1: Using an associative array (see slide 155)</h2>
+
     <script>
         
         menu = [];
@@ -25,6 +28,7 @@
     
     </script>
 
+    <!-- Part 2 -->
     <h2>Part 2: Using an object (see slide 157)</h2>
 
     <script>
@@ -48,11 +52,40 @@
         document.write("Menu Values: " + menuValues + "<br>")
 
         document.write("<br>")
-        document.write("Full menu:")
+        document.write("Full menu with bullets:")
         for (i = 0; i < menuKeys.length; i++) {
             document.write("<ul><li>" + menuKeys[i] + " price: $" + menuValues[i] + "</ul>")
         }
 
     </script>
+
+
+    <!-- Part 3 -->
+    <h2>Part 3: Using a Class (see slide 174)</h2>
+    <script>
+
+    let menuTest = [];
+    
+    // Define a function with a class
+    function MenuItem(item, price) {
+        this.item = item;
+        this.price = price
+    }
+    
+
+    // Instance the class using new
+    hotdog = new MenuItem("Hotdogs", 4)
+    fries = new MenuItem("Fries", 3.50)
+    soda = new MenuItem("Soda", 1.50)
+    sauerkraut = new MenuItem("Sauerkraut", 1)
+
+    menuTest = [hotdog, fries, soda, sauerkraut]
+
+    for (i = 0; i < menuTest.length; i++) {
+        document.write(menuTest[i].item + " - $" + menuTest[i].price + "<br>")
+    }
+
+    </script>
+
 </body>
 </html>
