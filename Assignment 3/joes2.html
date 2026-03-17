@@ -1,0 +1,36 @@
+<!-- This program creates a dropdow menu of the array items -->
+<!-- Live URL https://pochat.github.io/harvard-dgmd-e-28/Assignment%203/joes2.html -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Joe's Hotdogs</h1>
+
+    <!-- Part 4 -->
+    <h2>Part 4:</h2>
+    <select name="selectMenuItems" id="menuItems"></select>
+
+    <script>
+        
+        menu = [];
+        menu["Hotdogs"] = 4
+        menu["Fries"] = 3.50
+        menu["Soda"] = 1.50
+        menu["Sauerkraut"] = 1
+    
+        
+        let html = "";
+        for (key in menu) {
+            html += "<option>" + key + " - $" + menu[key] + "</option>";
+        }
+        document.getElementById("menuItems").innerHTML = html;
+    
+    </script>
+
+
+</body>
+</html>
