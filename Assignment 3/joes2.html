@@ -42,7 +42,7 @@
             dropDownMenu += "<option>" + menuKeys[i] + " - $" + menuValues[i] + "</option>";
         }
 
-        // Render menu
+        // Render DropDown menu
         document.getElementById("menuItems").innerHTML = dropDownMenu;
 
 
@@ -52,7 +52,7 @@
 
         document.getElementById("menuItems").addEventListener("change", function() {
             const selectedIndex = this.selectedIndex;
-            cartArray.push(this.selectedIndex);
+            cartArray.push(menuKeys[selectedIndex], menuValues[selectedIndex]);
             console.log("You selected:", menuKeys[selectedIndex]);
             console.log("Cart Array has:", cartArray);
             
