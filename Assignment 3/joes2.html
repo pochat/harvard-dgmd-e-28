@@ -26,7 +26,7 @@
     <button>Checkout</button>
 
     <script>
-        
+
         const menu = {
             Hotdogs: 4,
             Fries: 3.50,
@@ -41,8 +41,25 @@
         for (i = 0; i < menuKeys.length; i++) {
             dropDownMenu += "<option>" + menuKeys[i] + " - $" + menuValues[i] + "</option>";
         }
+
+        // Render menu
         document.getElementById("menuItems").innerHTML = dropDownMenu;
 
+
+        // Know what item the user selected:
+
+        cartArray = []
+
+        document.getElementById("menuItems").addEventListener("change", function() {
+            const selectedIndex = this.selectedIndex;
+            cartArray.push(this.selectedIndex);
+            console.log("You selected:", menuKeys[selectedIndex]);
+            console.log("Cart Array has:", cartArray);
+            
+        });
+
+        
+        
         console.log(menuKeys[1]);
         console.log(menuValues[1]);
         
