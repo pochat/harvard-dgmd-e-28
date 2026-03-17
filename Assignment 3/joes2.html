@@ -23,25 +23,30 @@
     <div></div>
 
     <!-- Checkout -->
-     <button>Checkout</button>
+    <button>Checkout</button>
 
     <script>
         
-        menu = [];
-        menu["Hotdogs"] = 4
-        menu["Fries"] = 3.50
-        menu["Soda"] = 1.50
-        menu["Sauerkraut"] = 1
-    
-        
-        let html = "";
-        for (key in menu) {
-            html += "<option>" + key + " - $" + menu[key] + "</option>";
+        const menu = {
+            Hotdogs: 4,
+            Fries: 3.50,
+            Soda: 1.50,
+            Sauerkraut: 1
         }
-        document.getElementById("menuItems").innerHTML = html;
-    
-    </script>
 
+        const menuKeys = Object.keys(menu)
+        const menuValues = Object.values(menu)
+
+        let dropDownMenu = "";
+        for (i = 0; i < menuKeys.length; i++) {
+            dropDownMenu += "<option>" + menuKeys[i] + " - $" + menuValues[i] + "</option>";
+        }
+        document.getElementById("menuItems").innerHTML = dropDownMenu;
+
+        console.log(menuKeys[1]);
+        console.log(menuValues[1]);
+        
+    </script>
 
 </body>
 </html>
