@@ -20,7 +20,10 @@
     <button id="addToCartButton" onclick="addToCart()">Add to Cart</button>
 
     <!-- Items inside the cart -->
-    <div></div>
+    <div id="cartListOfItems"></div>
+
+    <!-- Cart Sum -->
+    <div id="cartSum"></div>
 
     <!-- Checkout -->
     <button>Checkout</button>
@@ -47,24 +50,33 @@
 
 
         // Know what item the user selected:
-
         cartArray = []
 
         document.getElementById("menuItems").addEventListener("change", function() {
             const selectedIndex = this.selectedIndex;
-            cartArray.push(menuKeys[selectedIndex], menuValues[selectedIndex]);
-            console.log("You selected:", menuKeys[selectedIndex]);
-            console.log("Cart Array has:", cartArray);
+            // console.log("You selected:", menuKeys[selectedIndex]);
+            // console.log("Cart Array has:", cartArray);
             
         });
         
         // Add to Cart function
         function addToCart() {
-            const selectedIndex = this.selectedIndex;
+            const selectedIndex = document.getElementById("menuItems").selectedIndex;
             cartArray.push(menuKeys[selectedIndex], menuValues[selectedIndex]);
-            console.log("Cart Array has 2:", cartArray);
-            alert("clicked!")
+            console.log("Cart Array has:", cartArray);
+
+            // Render the cart list
+            let cartPreview = "";
+
+            // Initialize total price
+            let sum = 0;
             
+            for (let i = 0; i < cartArray.length; i += 2) {
+                cartPreview += cartArray[i] + " - $" + cartArray[i+1] + "<br>";
+                sum += cartArray[i+1];
+            }
+            document.getElementById("cartListOfItems").innerHTML = cartPreview;
+            document.getElementById("cartSum").innerHTML = "Total: $" + sum;
         }
         
         
