@@ -10,8 +10,8 @@
 <body>
     <h1>Joe's Hotdogs</h1>
 
-    <!-- Part 4 -->
-    <h2>Part 4:</h2>
+    <!-- Part 4, 5, and 6 -->
+    <h2>Part 4, 5, and 6:</h2>
 
     <!-- Dropdown menu -->
     <select name="selectMenuItems" id="menuItems"></select>
@@ -26,7 +26,7 @@
     <div id="cartSum"></div>
 
     <!-- Checkout -->
-    <button>Checkout</button>
+    <button id="checkOutButton" onclick="checkOut()">Checkout</button>
 
     <script>
 
@@ -49,9 +49,26 @@
         document.getElementById("menuItems").innerHTML = dropDownMenu;
 
 
-        // Know what item the user selected:
+        // Initialize variables to know what item(s) the user selected:
         cartArray = []
+        let sum = 0;
 
+        // Function to toggle checkout button visibility
+        function toggleCheckoutButton() {
+            const button = document.getElementById("checkOutButton");
+            if (cartArray.length > 0) {
+                button.style.display = "block";
+            } else {
+                button.style.display = "none";
+            }
+        }
+
+        // Hide button on page load
+        window.onload = function() {
+            toggleCheckoutButton();
+        }
+
+        // Know the exact selected items
         document.getElementById("menuItems").addEventListener("change", function() {
             const selectedIndex = this.selectedIndex;
             // console.log("You selected:", menuKeys[selectedIndex]);
@@ -68,8 +85,8 @@
             // Render the cart list
             let cartPreview = "";
 
-            // Initialize total price
-            let sum = 0;
+            // Reset total price
+            sum = 0;
 
             for (let i = 0; i < cartArray.length; i += 2) {
                 cartPreview += cartArray[i] + " - $" + cartArray[i+1] + "<br>";
@@ -77,11 +94,22 @@
             }
             document.getElementById("cartListOfItems").innerHTML = cartPreview;
             document.getElementById("cartSum").innerHTML = "Total: $" + sum;
+            toggleCheckoutButton();
         }
         
-        
-        console.log(menuKeys[1]);
-        console.log(menuValues[1]);
+        function checkOut() {
+            alert("Number of Items: " + (cartArray.length / 2) + " Total: $" + sum)
+            
+            // Clear values
+            cartArray = []
+            sum = 0;
+            cartPreview = "";
+
+            // Clear render on browser
+            document.getElementById("cartListOfItems").innerHTML = cartPreview;
+            document.getElementById("cartSum").innerHTML = "Total: $" + sum;
+            toggleCheckoutButton();
+        }
         
     </script>
 
