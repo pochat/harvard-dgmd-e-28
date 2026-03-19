@@ -7,13 +7,6 @@
     background-color: #f0f0f0;
 }
 
-.gameTitle {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
 .boxBorder {
     border: 2px solid black;
     width: 50px;
@@ -25,11 +18,28 @@
     font-size: 24px;
 }
 
+.gameTitle {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
 .gameContainer {
     width: 350px;
     text-align: center;
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
+    padding-bottom: 20px;
 
-}   
+}
+
+input {
+    width: 350px;
+    height: 50px;
+    text-align: center;
+    font-size: 24px;
+    margin: 5px;
+}

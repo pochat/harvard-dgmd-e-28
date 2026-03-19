@@ -26,7 +26,7 @@ function drawBoard() {
             const newTextBox = document.createElement('span');
             
             // Modify the properties
-            newTextBox.textContent = "P"
+            newTextBox.textContent = ""
             newTextBox.className = "boxBorder"
             
             // Draw on the DOM
@@ -37,7 +37,19 @@ function drawBoard() {
 }
 
 function guessWord() {
+
+    const insertUserGuessInBox = document.querySelectorAll('.boxBorder')
     const userGuess = document.getElementById('wordGuess').value.toUpperCase();
-    console.log("mario: ", userGuess);
+    
+    // insert one letter per box
+    for (let i = 0; i < userGuess.length; i++) {
+        insertUserGuessInBox[i].textContent = userGuess[i];
+
+    }
+    
+
+    // if (userGuess.includes(word)) {
+    //     alert("includes")
+    // }
     
 }
