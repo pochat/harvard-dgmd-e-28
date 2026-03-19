@@ -9,9 +9,19 @@ let gameOver = false; // Flag to indicate if the game is over
 // Initialize on load
 
 window.onload = function() {
-    gameStarts();
+    drawBoard();
 }
 
-function gameStarts() {
+function drawBoard() {
+
+    // Create the element
+    const newTextBox = document.createElement('span');
+
+    // Modify the properties
+    newTextBox.textContent = "P"
+    newTextBox.className = "boxBorder"
+
+    // Draw on the DOM
+    document.body.appendChild(newTextBox)
 
 }
