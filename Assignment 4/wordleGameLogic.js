@@ -50,9 +50,9 @@ function guessWord() {
     // Check if user guess includes any characters in the word
     for (let i = 0; i < userGuess.length; i++) {
         if (userGuess[i] === word[i]) {
-            alert("correct letter, correct position");
+            insertUserGuessInBox[i].className = "boxBorder green"
         } else if (word.includes(userGuess[i])) {
-            alert("letter in word, wrong position");
+            insertUserGuessInBox[i].className = "boxBorder yellow"
         }
     }
 
