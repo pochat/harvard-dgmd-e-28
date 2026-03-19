@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Operators</title>
+</head>
+<body>
+    <h1>Operators</h1>
+
+    <script>
+        function operator(op) {
+
+            // Define object
+            ops = {
+                "+": (a,b) => a + b,
+                "-": (a,b) => a - b,
+                "x": (a,b) => a * b,
+                "/": (a,b) => a / b,
+
+            }
+
+            // return the selected operator
+            return ops[op]
+        }
+
+        calc = (a, op, b) => operator(op)(a,b);
+
+        result = calc(2, "+", 8)
+
+        document.write("Result: ", result);
+
+    </script>
+</body>
+</html>
