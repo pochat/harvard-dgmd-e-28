@@ -41,12 +41,21 @@ function guessWord() {
     const insertUserGuessInBox = document.querySelectorAll('.boxBorder')
     const userGuess = document.getElementById('wordGuess').value.toUpperCase();
     
-    // insert one letter per box
+    // Insert one letter per box
     for (let i = 0; i < userGuess.length; i++) {
         insertUserGuessInBox[i].textContent = userGuess[i];
 
     }
     
+    // Check if user guess includes any characters in the word
+    for (let i = 0; i < userGuess.length; i++) {
+        if (userGuess[i] === word[i]) {
+            alert("correct letter, correct position");
+        } else if (word.includes(userGuess[i])) {
+            alert("letter in word, wrong position");
+        }
+    }
+
 
     // if (userGuess.includes(word)) {
     //     alert("includes")
