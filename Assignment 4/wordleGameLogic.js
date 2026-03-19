@@ -35,3 +35,9 @@ function drawBoard() {
     }
 
 }
+
+function guessWord() {
+    const userGuess = document.getElementById('wordGuess').value.toUpperCase();
+    console.log("mario: ", userGuess);
+    
+}
