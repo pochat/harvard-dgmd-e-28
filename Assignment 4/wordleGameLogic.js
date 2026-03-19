@@ -14,14 +14,24 @@ window.onload = function() {
 
 function drawBoard() {
 
-    // Create the element
-    const newTextBox = document.createElement('span');
+    // Grab container
+    const gameContainer = document.querySelector('.gameContainer');
 
-    // Modify the properties
-    newTextBox.textContent = "P"
-    newTextBox.className = "boxBorder"
 
-    // Draw on the DOM
-    document.body.appendChild(newTextBox)
+    for (row = 0; row < wordLength; row++) { // Render rows
+
+        for (column = 0; column < maxAttempts; column ++) { // Render columns
+
+            // Create the element
+            const newTextBox = document.createElement('span');
+            
+            // Modify the properties
+            newTextBox.textContent = "P"
+            newTextBox.className = "boxBorder"
+            
+            // Draw on the DOM
+            gameContainer.appendChild(newTextBox)
+        }
+    }
 
 }
