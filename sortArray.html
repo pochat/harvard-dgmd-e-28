@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort Array</title>
+</head>
+<body>
+    
+<h1>Sort array</h1>
+
+<script>
+    ages = [1, 45, 32, 21, 44, 100]
+
+    document.write("unsorted: ", ages.join(" "), "<br>")
+    document.write("sorted: ", ages.sort((a, b) => a - b).join(" "), "<br>")
+    
+    // reversed
+    document.write("sorted reversed: ", ages.sort((a, b) => b - a).join(" "), "<br>")
+
+
+</script>
+
+</body>
+</html>

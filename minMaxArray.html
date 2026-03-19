@@ -1,0 +1,30 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<h1>Min Max array</h1>
+
+<script>
+
+numbersArray = [2,1,4,5,6,7,3,8,9,10]
+
+function minMax () {
+
+    numbersArray.sort((a,b) => a - b)
+    document.write("Min: ", numbersArray[0], "<br>")
+    
+    numbersArray.sort((a,b) => b - a)
+    document.write("Max: ", numbersArray[0], "<br>")
+
+}
+
+minMax()
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deconstruct</title>
+</head>
+<body>
+    <h1>Deconstruct Arrays</h1>
+
+    <script>
+
+        ages = [54, 55, 17, 13]
+
+        const [Mario, Sonia, Matisse, Alessi] = ages
+
+        document.write("Mario: ", Mario, "<br>")
+        document.write("Sonia: ", Sonia, "<br>")
+
+        agesTestingOthers = [1,2,3,4,5,6,7,8];
+
+        // spread operators takes what is left
+        const [First, Second, ...others] = agesTestingOthers
+        document.write("Others: ", others, "<br>")
+
+
+    </script>
+</body>
+</html>

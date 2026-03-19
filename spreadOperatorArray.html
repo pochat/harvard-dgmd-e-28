@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Spread Operator</h1>
+
+    <script>
+        fruits = ["mango", "banana", "strawberry", "pineapple"]
+        ingredients = ["flour", "almond", "cocoa", "eggs"]
+
+        allStuff = [...fruits,...ingredients]
+
+        document.write("All the stuff: ", allStuff.join(" - ").toUpperCase(), "<br>")
+    </script>
+
+    <script>
+        class1 = "Mario Sonias"
+        class2 = "Alessi Matisse"
+        listArray = " ";
+
+        function combined(a, b) {
+
+            aSplit = a.split(" ")
+            bSplit = b.split(" ")
+
+            together = [...aSplit, ...bSplit]
+
+            document.write("Group a: ", aSplit.join(" "), "<br>")
+            document.write("Group b: ", bSplit.join(" "), "<br>")
+            document.write("Combined: ", together.join(" "), "<br>")
+            document.write("Sorted Alphabetically: ", together.sort().join(" "), "<br>")
+
+            const listArray = together.map(item => "<li>" + item + "</li>")
+            document.write("<ol>" + listArray.join("") + "</ol>")
+
+        }
+        combined(class1, class2)
+
+    </script>
+
+</body>
+</html>
