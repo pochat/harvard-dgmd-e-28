@@ -74,3 +74,16 @@ input {
     justify-content: center;
     margin-top: 20px;
 }
+
+.submitWordButton {
+    width: 100px;
+    height: 50px;
+    font-size: 18px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.submitWordButton:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}

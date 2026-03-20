@@ -12,6 +12,7 @@ let gameOver = false; // Flag to indicate if the game is over
 window.onload = function() {
     drawBoard();
     usedLetterBoard();
+    disabledButtonIfEmpty();
 }
 
 function drawBoard() {
@@ -37,6 +38,19 @@ function drawBoard() {
         }
     }
 
+}
+
+function disabledButtonIfEmpty() {
+    const button = document.getElementById("submitButton")
+    const inputField = document.getElementById("wordGuess")
+
+    if (inputField.value === "") {
+        button.disabled = true;
+        button.className = "submitWordButton disabled"
+    } else {
+        button.disabled = false;
+        button.className = "submitWordButton"
+    }
 }
 
 // User enters their guess word
@@ -74,10 +88,17 @@ function guessWord() {
     // Advance to next row
     attempts++;
 
-    // if (userGuess.includes(word)) {
-    //     alert("includes")
-    // }
-    
+    // Game Win
+    gameWon(userGuess, word)
+}
+
+// User guesses the word
+function gameWon(userGuess, word) {
+    if (userGuess === word) {
+        setTimeout(function() {
+            alert("You Guessed The Word!")
+        }, 1000)
+    }
 }
 
 // Show color indicators to Used Letter Board
@@ -137,6 +158,7 @@ function addColorIndicatorsToGameGrid(userGuess, word, attempts) {
             insertUserGuessInBox[startIndex + i].className = "boxBorder gray"
         }
     }
+
 }
 
 // Allow only alphabet letters
@@ -173,5 +195,4 @@ function usedLetterBoard(userGuess) {
         addColorIndicatorsToGameGrid(userGuess, word)
     }
 
-    // Display color indicators to the user
 }
