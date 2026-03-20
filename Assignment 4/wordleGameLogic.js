@@ -97,8 +97,10 @@ function gameWon(userGuess, word) {
     if (userGuess === word) {
         setTimeout(function() {
             alert("You Guessed The Word!")
-        }, 1000)
+        }, 100)
     }
+    disabledButtonIfEmpty();
+
 }
 
 // Show color indicators to Used Letter Board
