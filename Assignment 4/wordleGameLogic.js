@@ -40,11 +40,12 @@ function drawBoard() {
 
 }
 
+// Don't let the user submit if the input is less than five characters
 function disabledButtonIfEmpty() {
     const button = document.getElementById("submitButton")
     const inputField = document.getElementById("wordGuess")
 
-    if (inputField.value === "") {
+    if (inputField.value.length < 5) {
         button.disabled = true;
         button.className = "submitWordButton disabled"
     } else {
@@ -55,6 +56,9 @@ function disabledButtonIfEmpty() {
 
 // User enters their guess word
 function guessWord() {
+
+    // Check if the user run out of attempts
+    checkGameOver()
 
     const userGuessInput = document.getElementById("wordGuess")
     const userGuess = document.getElementById('wordGuess').value.toUpperCase();
@@ -90,6 +94,7 @@ function guessWord() {
 
     // Game Win
     gameWon(userGuess, word)
+    checkGameOver()
 }
 
 // User guesses the word
@@ -101,6 +106,14 @@ function gameWon(userGuess, word) {
     }
     disabledButtonIfEmpty();
 
+}
+
+function checkGameOver() {
+    if (attempts === 6) {
+         setTimeout(function() {
+            alert("Game Over!")
+        }, 100)
+    }
 }
 
 // Show color indicators to Used Letter Board

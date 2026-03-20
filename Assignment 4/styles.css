@@ -81,6 +81,7 @@ input {
     font-size: 18px;
     margin-top: 10px;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .submitWordButton:disabled {
