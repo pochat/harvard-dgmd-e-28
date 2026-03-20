@@ -37,11 +37,19 @@ function drawBoard() {
 
 }
 
+// User enters their guess word
 function guessWord() {
 
     const userGuessInput = document.getElementById("wordGuess")
-    const insertUserGuessInBox = document.querySelectorAll('.boxBorder')
     const userGuess = document.getElementById('wordGuess').value.toUpperCase();
+    
+    // Check if the input is exactly 5 letters
+    if (userGuess.length !== wordLength) {
+        alert("Please enter exactly 5 letters");
+        return; // Stop here, don't process
+    }
+    
+    const insertUserGuessInBox = document.querySelectorAll('.boxBorder')
     
     // Insert one letter per box
     for (let i = 0; i < userGuess.length; i++) {
@@ -106,11 +114,13 @@ function addColorIndicatorsToGameGrid(userGuess, word) {
         // Check if it's the correct position
         if (userGuess[i] === word[i]) {
             insertUserGuessInBox[i].className = "boxBorder green"
-        } else if (word.includes(userGuess[i])) {
+        } 
+        else if (word.includes(userGuess[i])) {
 
             // Check if it's in the word but wrong position
             insertUserGuessInBox[i].className = "boxBorder yellow"
-        } else {
+        } 
+        else {
 
             // Mark the letter as used
             insertUserGuessInBox[i].className = "boxBorder gray"
