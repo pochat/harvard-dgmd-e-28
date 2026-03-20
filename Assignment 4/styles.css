@@ -29,6 +29,11 @@
     color: black;
 }
 
+.boxBorder.gray {
+    background-color: gray;
+    color: black;
+}
+
 .gameTitle {
     font-size: 36px;
     font-weight: bold;

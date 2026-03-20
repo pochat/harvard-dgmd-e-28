@@ -6,8 +6,7 @@ const wordLength = 5; // Length of the word to guess
 let attempts = 0; // Current number of attempts
 let gameOver = false; // Flag to indicate if the game is over
 
-// Initialize on load
-
+// Initialize when the page loads
 window.onload = function() {
     drawBoard();
     usedLetterBoard();
@@ -70,8 +69,10 @@ function addColorIndicatorsToUsedLetterBoard(userGuess, word) {
     const alphabetBoxes = document.querySelectorAll('#usedLetterBoard span');
     
     // Go through each letter in the alphabet board
-    for (let box of alphabetBoxes) {
+    for (let i = 0; i < alphabetBoxes.length; i ++) {
+        let box = alphabetBoxes[i];
         let letter = box.textContent;
+
         
         // Check if this letter is in the user's guess
         for (let i = 0; i < userGuess.length; i++) {
@@ -83,7 +84,12 @@ function addColorIndicatorsToUsedLetterBoard(userGuess, word) {
                 // Check if it's in the word but wrong position
                 else if (word.includes(letter)) {
                     box.className = "boxBorder yellow";
+                } 
+                // Mark the letter as used
+                else {
+                     box.className = "boxBorder gray";
                 }
+                
             }
         }
     }
@@ -96,10 +102,18 @@ function addColorIndicatorsToGameGrid(userGuess, word) {
 
     // Check if user guess includes any characters in the word and color it
     for (let i = 0; i < userGuess.length; i++) {
+
+        // Check if it's the correct position
         if (userGuess[i] === word[i]) {
             insertUserGuessInBox[i].className = "boxBorder green"
         } else if (word.includes(userGuess[i])) {
+
+            // Check if it's in the word but wrong position
             insertUserGuessInBox[i].className = "boxBorder yellow"
+        } else {
+
+            // Mark the letter as used
+            insertUserGuessInBox[i].className = "boxBorder gray"
         }
     }
 }
