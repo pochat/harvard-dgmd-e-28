@@ -15,12 +15,13 @@
 
         <h1 class="gameTitle">Wordle</h1>
         
-        <div class="gameContainer">
-        </div>
+        <div class="gameContainer"></div>
 
         <label for="wordGuess">Enter a five letter word</label>
         <input type="text" id="wordGuess" name="wordGuess" minlength="5" maxlength="5" size="20" required></input>
         <input type="submit" value="submit" onclick="guessWord()" return false;>
+
+        <div id="usedLetterBoard"></div>
         
     </div>
 </body>

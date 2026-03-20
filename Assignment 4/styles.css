@@ -16,6 +16,7 @@
     text-align: center;
     line-height: 50px;
     font-size: 24px;
+
 }
 
 .boxBorder.green {
@@ -52,4 +53,11 @@ input {
     text-align: center;
     font-size: 24px;
     margin: 5px;
+}
+
+.keyboardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
 }
