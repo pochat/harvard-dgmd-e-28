@@ -17,9 +17,14 @@
         
         <div class="gameContainer"></div>
 
-        <label for="wordGuess">Enter a five letter word</label>
-        <input type="text" id="wordGuess" name="wordGuess" minlength="5" maxlength="5" size="20" required></input>
-        <input type="submit" value="submit" onclick="guessWord()" return false;>
+        <label class="instructions" for="wordGuess">Enter a five letter word:</label>
+
+        <!-- Accept Letters only On Input-->
+        <!-- https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_ev_oninput -->
+        <input type="text" id="wordGuess" name="wordGuess" minlength="5" maxlength="5" size="20" pattern="[a-zA-Z]+" required oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')">
+        
+        <!-- Invoke the function on click -->
+        <input type="button" value="submit" onclick="guessWord()">
 
         <div id="usedLetterBoard"></div>
         

@@ -53,6 +53,14 @@ input {
     text-align: center;
     font-size: 24px;
     margin: 5px;
+    text-transform: uppercase;
+
+}
+
+.instructions {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .keyboardContainer {
