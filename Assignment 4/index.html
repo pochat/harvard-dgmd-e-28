@@ -23,6 +23,9 @@
         <!-- https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_ev_oninput -->
         <input type="text" id="wordGuess" name="wordGuess" minlength="5" maxlength="5" size="20" pattern="[a-zA-Z]+" required oninput="this.value = this.value.replace(/[^a-zA-Z]/g, ''); disabledButtonIfEmpty()">
         
+        <!-- Start Game -->
+        <input id="restartButton" type="button" value="Start Game" onclick="startGame()" style="display: none;">
+
         <!-- Invoke the function on click -->
         <input class="submitWordButton" id="submitButton" type="button" value="submit >" onclick="guessWord()">
 

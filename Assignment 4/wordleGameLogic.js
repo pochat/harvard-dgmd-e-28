@@ -13,6 +13,40 @@ window.onload = function() {
     drawBoard();
     usedLetterBoard();
     disabledButtonIfEmpty();
+    document.getElementById("restartButton").style.display = "block";
+    document.getElementById("wordGuess").style.display = "none";
+
+
+}
+
+function startGame() {
+    // Reset the attempts counter (this is what controls the game)
+    attempts = 0;
+    gameOver = false;
+
+    // Toggle button visibility
+    document.getElementById("wordGuess").style.display = "block";
+    document.getElementById("submitButton").style.display = "block";
+    document.getElementById("restartButton").style.display = "none";
+
+    // Clear all boxes
+    const gameGrid = document.querySelectorAll('.boxBorder');
+    for (let i = 0; i < allBoxes.length; i++) {
+        gameGrid[i].textContent = "";
+        gameGrid[i].className = "boxBorder";
+    }
+    
+    // Reset alphabet board
+    const alphabetBoxes = document.querySelectorAll('#usedLetterBoard span');
+    for (let i = 0; i < alphabetBoxes.length; i++) {
+        alphabetBoxes[i].className = "boxBorder";
+    }
+    
+    // Clear input
+    document.getElementById("wordGuess").value = "";
+    
+    // Re-disable button
+    disabledButtonIfEmpty();
 }
 
 function drawBoard() {
@@ -97,21 +131,31 @@ function guessWord() {
     checkGameOver()
 }
 
-// User guesses the word
+// User wins by guessing the word
 function gameWon(userGuess, word) {
     if (userGuess === word) {
         setTimeout(function() {
             alert("You Guessed The Word!")
+            
+            // Toggle button visibility
+            document.getElementById("submitButton").style.display = "none";
+            document.getElementById("restartButton").style.display = "block";
         }, 100)
     }
     disabledButtonIfEmpty();
 
 }
 
+// User loses
 function checkGameOver() {
     if (attempts === 6) {
          setTimeout(function() {
             alert("Game Over!")
+
+        // Toggle button visibility
+        document.getElementById("wordGuess").style.display = "none";
+        document.getElementById("submitButton").style.display = "none";
+        document.getElementById("restartButton").style.display = "block";
         }, 100)
     }
 }
