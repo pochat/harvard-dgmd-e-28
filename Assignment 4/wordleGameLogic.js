@@ -13,10 +13,10 @@ window.onload = function() {
     drawBoard();
     usedLetterBoard();
     disabledButtonIfEmpty();
-    document.getElementById("restartButton").style.display = "block";
-    document.getElementById("wordGuess").style.display = "none";
-
-
+    document.getElementById("restartButton").style.display = "block"; //show
+    document.getElementById("wordGuess").style.display = "none"; // hide
+    document.getElementById("submitButton").style.display = "none"; // hide
+    document.getElementById("gameInstructions").style.display = "none"; // hide
 }
 
 function startGame() {
@@ -27,6 +27,7 @@ function startGame() {
     // Toggle button visibility
     document.getElementById("wordGuess").style.display = "block";
     document.getElementById("submitButton").style.display = "block";
+    document.getElementById("gameInstructions").style.display = "block";
     document.getElementById("restartButton").style.display = "none";
 
     // Clear all boxes
