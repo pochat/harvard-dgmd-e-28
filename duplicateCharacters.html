@@ -8,12 +8,17 @@
     <h1>Duplicate Characters</h1>
 
     <script>
-        
+    
+        // Define empty object to receive word
         let wordChars = {};
+
+        // Function to check how many letters are duplicated
         function countCharacters(word) {
             for (i = 0; i < word.length; i++) {
                 let char = word[i];
-                wordChars[char] = (wordChars[char] || 0) + 1;
+
+                // If the character does not exist in the object, assign value of 0
+                wordChars[char] = (wordChars[char] || 0) + 1; 
             }
             
         }
