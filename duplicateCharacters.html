@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duplicate Characters</title>
+</head>
+<body>
+    <h1>Duplicate Characters</h1>
+
+    <script>
+        
+        let wordChars = {};
+        function countCharacters(word) {
+            for (i = 0; i < word.length; i++) {
+                let char = word[i];
+                wordChars[char] = (wordChars[char] || 0) + 1;
+            }
+            
+        }
+        
+        countCharacters("Sonia Bolduc")
+        document.write(JSON.stringify(wordChars))
+    </script>
+
+
+</body>
+</html>
