@@ -3,31 +3,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Duplicate Characters</title>
+
+    <style>
+        .black {
+            color: black;
+        }
+        .yellow {
+            color: yellow;
+        }
+        .green {
+            color: green;
+        }
+        .grey {
+            color: gray;
+        }
+    </style>
 </head>
 <body>
     <h1>Duplicate Characters</h1>
+
+    <div id="originalCharacters" class="black"></div>
+    <div id="userGuessText" class="black"></div>
 
     <script>
     
         // Define an empty object to receive word
         let wordChars = {};
+        let userGuess = ""
+        originalText = document.getElementById("originalCharacters")
+        userGuessText = document.getElementById("userGuessText")
 
         // Function to check how many letters are duplicated
-        function countDuplicatedCharacters(word) {
+        function countDuplicatedCharacters(word, userGuess) {
             for (i = 0; i < word.length; i++) {
                 let char = word[i];
 
                 // If the character does not exist in the object, assign value of 0
                 wordChars[char] = (wordChars[char] || 0) + 1; 
             }
-            console.log(wordChars);
+            console.log("WordChars: ", wordChars);
 
-            return wordChars;
+            for (i = 0; i < userGuess.length; i++) {
+                if (userGuess[i] === wordChars[i]) {
+                    console.log("userguess: ", userGuess);
+                    
+                    originalText.className  = "green"
+                }
+            }
+
+        //   return { wordChars, userGuess };
             
         }
         
-        countDuplicatedCharacters("Sonia Bolduc")
-        document.write(JSON.stringify(wordChars))
+        countDuplicatedCharacters("APPLE", "APPLE")
+        originalText.innerHTML = JSON.stringify(wordChars)
+        userGuessText.innerHTML = userGuess
+
     </script>
 
 

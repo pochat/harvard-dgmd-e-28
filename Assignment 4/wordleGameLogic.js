@@ -5,8 +5,9 @@ const maxAttempts = 6; // Maximum number of attempts allowed
 const wordLength = 5; // Length of the word to guess
 let attempts = 0; // Current number of attempts
 let gameOver = false; // Flag to indicate if the game is over
-// const row = 0;
-// const column = 0;
+let wordChars = {}; // Empty object to count duplicate characters
+
+
 
 // Initialize when the page loads
 window.onload = function() {
@@ -50,6 +51,7 @@ function startGame() {
     disabledButtonIfEmpty();
 }
 
+// Create the elements for the game board
 function drawBoard() {
 
     // Grab container
@@ -192,6 +194,19 @@ function addColorIndicatorsToUsedLetterBoard(userGuess, word) {
     }
 }
 
+// Function to check how many letters are duplicated
+function countDuplicatedCharacters(word) {
+    for (i = 0; i < word.length; i++) {
+        let char = word[i];
+
+        // If the character does not exist in the object, assign value of 0
+        wordChars[char] = (wordChars[char] || 0) + 1; 
+    }
+
+    return wordChars;
+    
+}
+
 // Show color indicators to Game Grid
 function addColorIndicatorsToGameGrid(userGuess, word, attempts) {
 
@@ -200,6 +215,9 @@ function addColorIndicatorsToGameGrid(userGuess, word, attempts) {
     // Calculate which row to color
     const startIndex = attempts * 5; // 5 columns per row
 
+    // Get character counts from the word
+    const charCounts = countDuplicatedCharacters(word);
+
     // Check if user guess includes any characters in the word and color it
     for (let i = 0; i < userGuess.length; i++) {
 
@@ -207,7 +225,7 @@ function addColorIndicatorsToGameGrid(userGuess, word, attempts) {
         if (userGuess[i] === word[i]) {
             insertUserGuessInBox[startIndex + i].className = "boxBorder green"
         } 
-        else if (word.includes(userGuess[i])) {
+        else if (word.includes(userGuess[i]) || userGuess.includes(charCounts)) {
 
             // Check if it's in the word but wrong position
             insertUserGuessInBox[startIndex + i].className = "boxBorder yellow"
