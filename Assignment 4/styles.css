@@ -68,7 +68,7 @@ body {
 }
 
 .boxBorder.yellow {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
+    background: linear-gradient(135deg, #edf50b, #ced906);
     color: white;
     border: none;
 }

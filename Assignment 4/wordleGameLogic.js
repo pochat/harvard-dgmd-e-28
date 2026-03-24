@@ -143,6 +143,9 @@ function gameWon(userGuess, word) {
             // Toggle button visibility
             document.getElementById("submitButton").style.display = "none";
             document.getElementById("restartButton").style.display = "block";
+            document.getElementById("wordGuess").style.display = "none";
+            document.getElementById("gameInstructions").style.display = "none"; // hide
+
         }, 100)
     }
     disabledButtonIfEmpty();
