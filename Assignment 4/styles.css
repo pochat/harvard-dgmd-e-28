@@ -1,88 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f0f0f0;
-}
-
-.boxBorder {
-    border: 2px solid black;
-    width: 50px;
-    height: 50px;
-    display: inline-block;
-    margin: 5px;
-    text-align: center;
-    line-height: 50px;
-    font-size: 24px;
-
-}
-
-.boxBorder.green {
-    background-color: green;
-    color: white;
-}
-
-.boxBorder.yellow {
-    background-color: yellow;
-    color: black;
-}
-
-.boxBorder.gray {
-    background-color: gray;
-    color: black;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px 20px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    margin: 20px;
+    max-width: 700px;
+    height: 100%;
 }
 
 .gameTitle {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 30px;
 }
-
 
 .gameContainer {
     width: 350px;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    padding-bottom: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f8f9ff;
+    border-radius: 15px;
+    height: 90%;
+}
 
+.boxBorder {
+    border: 2px solid #e0e0e0;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    margin: 6px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: white;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.boxBorder:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.boxBorder.green {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+}
+
+.boxBorder.yellow {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    border: none;
+}
+
+.boxBorder.gray {
+    background-color: #d1d5db;
+    color: #6b7280;
+    border: none;
 }
 
 input {
-    width: 350px;
+    width: 100%;
+    max-width: 350px;
     height: 50px;
     text-align: center;
-    font-size: 24px;
-    margin: 5px;
+    font-size: 20px;
+    margin: 12px auto;
     text-transform: uppercase;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background-color: #f8f9ff;
+}
 
+input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    background-color: white;
 }
 
 .instructions {
-    font-size: 18px;
-    margin-bottom: 20px;
+    font-size: 16px;
+    margin-bottom: 15px;
     text-align: center;
+    color: #666;
+    font-weight: 500;
 }
 
-.usedLettersContainer {
+#usedLetterBoard {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 5px;
     margin-top: 20px;
-
+    padding: 20px;
+    background-color: #f8f9ff;
+    border-radius: 15px;
+    width: 100%;
 }
 
 .submitWordButton {
-    width: 100px;
+    width: 120px;
     height: 50px;
-    font-size: 18px;
-    margin-top: 10px;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 10px;
     cursor: pointer;
-    border-radius: 10px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.submitWordButton:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.submitWordButton:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 .submitWordButton:disabled {
-    background-color: rgb(187, 187, 187);
+    background: linear-gradient(135deg, #d1d5db, #9ca3af);
     cursor: not-allowed;
+    box-shadow: none;
 }
