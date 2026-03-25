@@ -34,7 +34,10 @@
         userGuessText = document.getElementById("userGuessText")
 
         // Function to check how many letters are duplicated
-        function countDuplicatedCharacters(word, userGuess) {
+        function countDuplicatedCharacters(word, userGuessParam) {
+
+            userGuess = userGuessParam
+            
             for (i = 0; i < word.length; i++) {
                 let char = word[i];
 
@@ -42,16 +45,16 @@
                 wordChars[char] = (wordChars[char] || 0) + 1; 
             }
             console.log("WordChars: ", wordChars);
+            console.log("User Guess: ", userGuess);
 
             for (i = 0; i < userGuess.length; i++) {
-                if (userGuess[i] === wordChars[i]) {
-                    console.log("userguess: ", userGuess);
-                    
+
+                if ( wordChars[userGuess[i]]) {
+                    console.log("user guess loop: ", userGuess);
                     originalText.className  = "green"
                 }
             }
 
-        //   return { wordChars, userGuess };
             
         }
         
