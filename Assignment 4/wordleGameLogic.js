@@ -6,11 +6,13 @@ const wordLength = 5; // Length of the word to guess
 let attempts = 0; // Current number of attempts
 let gameOver = false; // Flag to indicate if the game is over
 let wordChars = {}; // Empty object to count duplicate characters
-
+let modal; // For the win and lose screen
 
 
 // Initialize when the page loads
 window.onload = function() {
+    const closeModal = document.getElementById("modalCloseID");
+    modal = document.getElementById("modalWindow");
     drawBoard();
     usedLetterBoard();
     disabledButtonIfEmpty();
@@ -18,6 +20,22 @@ window.onload = function() {
     document.getElementById("wordGuess").style.display = "none"; // hide
     document.getElementById("submitButton").style.display = "none"; // hide
     document.getElementById("gameInstructions").style.display = "none"; // hide
+    document.getElementById("modalWindow").style.display = "none"; // hide
+
+    // When the user clicks on <span> (x), close the modal
+    if (closeModal) {
+        closeModal.onclick = function() {
+            modal.style.display = "none";
+        }
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target.id === "modalWindow") {
+        modal.style.display = "none";
+      }
+    }
+
 }
 
 function startGame() {
@@ -30,10 +48,12 @@ function startGame() {
     document.getElementById("submitButton").style.display = "block";
     document.getElementById("gameInstructions").style.display = "block";
     document.getElementById("restartButton").style.display = "none";
+    document.getElementById("modalWindow").style.display = "none"; // hide
+
 
     // Clear all boxes
     const gameGrid = document.querySelectorAll('.boxBorder');
-    for (let i = 0; i < allBoxes.length; i++) {
+    for (let i = 0; i < 30; i++) {
         gameGrid[i].textContent = "";
         gameGrid[i].className = "boxBorder";
     }
@@ -138,13 +158,15 @@ function guessWord() {
 function gameWon(userGuess, word) {
     if (userGuess === word) {
         setTimeout(function() {
-            alert("You Guessed The Word!")
             
             // Toggle button visibility
             document.getElementById("submitButton").style.display = "none";
             document.getElementById("restartButton").style.display = "block";
             document.getElementById("wordGuess").style.display = "none";
             document.getElementById("gameInstructions").style.display = "none"; // hide
+            document.getElementById("modalWindow").style.display = "flex"; // show
+            document.getElementById("modalContentText").innerHTML = "You won!"
+
 
         }, 100)
     }
@@ -162,6 +184,8 @@ function checkGameOver() {
         document.getElementById("wordGuess").style.display = "none";
         document.getElementById("submitButton").style.display = "none";
         document.getElementById("restartButton").style.display = "block";
+        document.getElementById("modalWindow").style.display = "flex";
+
         }, 100)
     }
 }
@@ -277,3 +301,4 @@ function usedLetterBoard(userGuess) {
     }
 
 }
+
