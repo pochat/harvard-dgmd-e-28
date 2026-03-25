@@ -27,7 +27,14 @@ body {
 .gameTitle {
     font-size: 48px;
     font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.gameSubtitle {
+    font-size: 18px;
+    color: #666;
     margin-bottom: 30px;
+    font-weight: 500;
 }
 
 .gameContainer {
@@ -134,6 +141,12 @@ input:focus {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     max-width: 400px;
     position: relative;
+}
+
+.modalText {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
 }
 
 .modalClose {

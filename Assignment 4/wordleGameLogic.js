@@ -22,6 +22,11 @@ window.onload = function() {
     document.getElementById("gameInstructions").style.display = "none"; // hide
     document.getElementById("modalWindow").style.display = "none"; // hide
 
+
+    // Show the word to guess in the console for the professors
+    console.log("Word to guess: ", word);
+    
+
     // When the user clicks on <span> (x), close the modal
     if (closeModal) {
         closeModal.onclick = function() {
@@ -165,7 +170,7 @@ function gameWon(userGuess, word) {
             document.getElementById("wordGuess").style.display = "none";
             document.getElementById("gameInstructions").style.display = "none"; // hide
             document.getElementById("modalWindow").style.display = "flex"; // show
-            document.getElementById("modalContentText").innerHTML = "You won!"
+            document.getElementById("modalContentText").innerHTML = "🏆<br>You won!";
 
 
         }, 100)
@@ -178,13 +183,14 @@ function gameWon(userGuess, word) {
 function checkGameOver() {
     if (attempts === 6) {
          setTimeout(function() {
-            alert("Game Over!")
 
         // Toggle button visibility
         document.getElementById("wordGuess").style.display = "none";
         document.getElementById("submitButton").style.display = "none";
         document.getElementById("restartButton").style.display = "block";
         document.getElementById("modalWindow").style.display = "flex";
+        document.getElementById("modalContentText").innerHTML = "🤪<br>Game Over!";
+
 
         }, 100)
     }
