@@ -20,7 +20,7 @@ window.onload = async function() {
     word = wordFromApi;
 
     // Show the word to guess in the console for the professors
-    console.log("Word from API to guess: ", word);
+    console.log("Assignedd Word to guess: ", word);
     
     // Set the initial variables and game settings
     const closeModal = document.getElementById("modalCloseID");
@@ -338,11 +338,11 @@ function getWordFromApi() {
         const randomWord = data[randomIndex].word;
         
         // Check the result
-        console.log("randomize result: ", randomWord);
+        console.log("Randomized result from API: ", randomWord);
         
         if (data.length > 0) {
             wordResult = randomWord.toUpperCase();
-            console.log("word from API result: ", wordResult);
+            console.log("Word from API result: ", wordResult);
             return wordResult
         }
         return null;
