@@ -49,7 +49,7 @@
 
             for (i = 0; i < userGuess.length; i++) {
 
-                if ( wordChars[userGuess[i]]) {
+                if ( wordChars[userGuess[i]] && count word > 1) {
                     console.log("user guess loop: ", userGuess);
                     originalText.className  = "green"
                 }
@@ -57,6 +57,8 @@
 
             
         }
+
+        // In addition to duplicates, in what position do they sit?
         
         countDuplicatedCharacters("APPLE", "APPLE")
         originalText.innerHTML = JSON.stringify(wordChars)

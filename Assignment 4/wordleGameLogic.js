@@ -1,6 +1,6 @@
 // Global variables
 
-const word = "APPLE"; // The word to guess
+let word = "Holas"; // The word to guess
 const maxAttempts = 6; // Maximum number of attempts allowed
 const wordLength = 5; // Length of the word to guess
 let attempts = 0; // Current number of attempts
@@ -9,23 +9,34 @@ let wordChars = {}; // Empty object to count duplicate characters
 let modal; // For the win and lose screen
 
 
+
 // Initialize when the page loads
-window.onload = function() {
+window.onload = async function() {
+    
+    // This has to be async and await; otherwise there is a timing issue.
+    const wordFromApi = await getWordFromApi()
+
+    // Assign the results to word
+    word = wordFromApi;
+
+    // Show the word to guess in the console for the professors
+    console.log("Word from API to guess: ", word);
+    
+    // Set the initial variables and game settings
     const closeModal = document.getElementById("modalCloseID");
     modal = document.getElementById("modalWindow");
+
+    // Run these functions onload
     drawBoard();
     usedLetterBoard();
     disabledButtonIfEmpty();
+
+    // Prepare the UI
     document.getElementById("restartButton").style.display = "block"; //show
     document.getElementById("wordGuess").style.display = "none"; // hide
     document.getElementById("submitButton").style.display = "none"; // hide
     document.getElementById("gameInstructions").style.display = "none"; // hide
-    document.getElementById("modalWindow").style.display = "none"; // hide
-
-
-    // Show the word to guess in the console for the professors
-    console.log("Word to guess: ", word);
-    
+    document.getElementById("modalWindow").style.display = "none"; // hide    
 
     // When the user clicks on <span> (x), close the modal
     if (closeModal) {
@@ -260,6 +271,9 @@ function addColorIndicatorsToGameGrid(userGuess, word, attempts) {
         } 
         else if (word.includes(userGuess[i]) || userGuess.includes(charCounts)) {
 
+            // Count how many times a letter appears in the word
+            // Track if its turned green so it's not replaced by another color
+
             // Check if it's in the word but wrong position
             insertUserGuessInBox[startIndex + i].className = "boxBorder yellow"
         } 
@@ -308,3 +322,30 @@ function usedLetterBoard(userGuess) {
 
 }
 
+// Get a five letter word from this API. It needs no key.
+// https://www.datamuse.com/api/
+
+function getWordFromApi() {
+
+    // Add return before fetch because it's a promise; otherwise it will be undefined
+    // reference: https://www.youtube.com/watch?v=cuEtnrL9-H0
+    return fetch('https://api.datamuse.com/words?sp=?????&max=100')
+    .then(res => res.json())
+    .then(data => {
+
+        // The API retrieves 100 words. We only need one but random.
+        const randomIndex = Math.floor(Math.random() * data.length);
+        const randomWord = data[randomIndex].word;
+        
+        // Check the result
+        console.log("randomize result: ", randomWord);
+        
+        if (data.length > 0) {
+            wordResult = randomWord.toUpperCase();
+            console.log("word from API result: ", wordResult);
+            return wordResult
+        }
+        return null;
+    })
+    
+}
