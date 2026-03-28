@@ -5,6 +5,10 @@
     <title>Duplicate Characters</title>
 
     <style>
+        body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: bold;
+        }
         .black {
             color: black;
         }
@@ -14,7 +18,7 @@
         .green {
             color: green;
         }
-        .grey {
+        .gray {
             color: gray;
         }
     </style>
@@ -48,11 +52,28 @@
             console.log("User Guess: ", userGuess);
 
             for (i = 0; i < userGuess.length; i++) {
+                // Create a span for each character
+                const charSpan = document.createElement('span');
+                charSpan.textContent = userGuess[i];
 
-                if ( wordChars[userGuess[i]] && count word > 1) {
-                    console.log("user guess loop: ", userGuess);
-                    originalText.className  = "green"
+                // Color it green if it's in the word
+                if (wordChars[userGuess[i]] && word[i] === userGuess[i]) {
+                    charSpan.className = "green";
+                    console.log("all: " + userGuess[i]);
                 }
+
+                else if (wordChars[userGuess[i]] && word[i] != userGuess[i]) {
+                    charSpan.className = "yellow";
+                    console.log("all: " + userGuess[i]);
+                }
+
+                else {
+                    charSpan.className = "gray";
+
+                }
+
+                // Add the span to the div
+                userGuessText.appendChild(charSpan);
             }
 
             
@@ -60,9 +81,8 @@
 
         // In addition to duplicates, in what position do they sit?
         
-        countDuplicatedCharacters("APPLE", "APPLE")
+        countDuplicatedCharacters("APPLE", "MALLO")
         originalText.innerHTML = JSON.stringify(wordChars)
-        userGuessText.innerHTML = userGuess
 
     </script>
 
