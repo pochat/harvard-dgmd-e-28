@@ -21,9 +21,6 @@ window.onload = async function() {
     // Assign the results to word
     word = wordFromApi;
 
-    // Show the word to guess in the console for the professors
-    console.log("Assigned Word to guess: ", word);
-    
     // Set the initial variables and game settings
     const closeModal = document.getElementById("modalCloseID");
     modal = document.getElementById("modalWindow");
@@ -56,10 +53,18 @@ window.onload = async function() {
 
 }
 
-function startGame() {
+async function startGame() {
     // Reset the attempts counter (this is what controls the game)
     attempts = 0;
     gameOver = false;
+
+    // Fetch a new word from the API
+    const wordFromApi = await getWordFromApi();
+    word = wordFromApi;
+
+    // Show the word to guess in the console for the professors
+    console.log("New word from restart: ", word);
+
 
     // Toggle button visibility
     document.getElementById("wordGuess").style.display = "block";
@@ -169,6 +174,10 @@ function guessWord() {
 
     // Game Win
     gameWon(userGuess, word)
+
+    if (userGuess === word) {
+        return; // Don't call checkGameOver if won
+    }
     checkGameOver()
 }
 
@@ -183,12 +192,13 @@ function gameWon(userGuess, word) {
             document.getElementById("wordGuess").style.display = "none";
             document.getElementById("gameInstructions").style.display = "none"; // hide
             document.getElementById("modalWindow").style.display = "flex"; // show
-            document.getElementById("modalContentText").innerHTML = "🏆<br>You won!";
+            document.getElementById("modalContentText").innerHTML = "🏆<br><br>You won!<br> You guessed the word: <br>" + word;
 
 
         }, 100)
     }
     disabledButtonIfEmpty();
+
 
 }
 
@@ -336,11 +346,11 @@ function getWordFromApi() {
         const randomWord = data[randomIndex].word;
         
         // Check the result
-        console.log("Randomized result from API: ", randomWord);
+        // console.log("Randomized result from API: ", randomWord);
         
         if (data.length > 0) {
             wordResult = randomWord.toUpperCase();
-            console.log("Word from API result: ", wordResult);
+            // console.log("Word from API result: ", wordResult);
             return wordResult
         }
         return null;
