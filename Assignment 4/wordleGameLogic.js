@@ -156,7 +156,7 @@ function guessWord() {
     }
 
     // Count duplicates and color the boxes
-    countDuplicatedCharacters(word, userGuess);
+    addColorIndicatorsToGameGrid(word, userGuess);
 
     // Color the used alphabet board
     addColorIndicatorsToUsedLetterBoard(userGuess, word)
@@ -202,7 +202,7 @@ function checkGameOver() {
         document.getElementById("submitButton").style.display = "none";
         document.getElementById("restartButton").style.display = "block";
         document.getElementById("modalWindow").style.display = "flex";
-        document.getElementById("modalContentText").innerHTML = "🤪<br>Game Over!";
+        document.getElementById("modalContentText").innerHTML = "🤪<br>Game Over!<br><br> The word was: <br> " + word;
 
 
         }, 100)
@@ -240,8 +240,8 @@ function addColorIndicatorsToUsedLetterBoard(userGuess, word) {
     }
 }
 
-// Function to check how many letters are duplicated
-function countDuplicatedCharacters(word, userGuessParam) {
+// Function to check how many letters are duplicated and assign color codes
+function addColorIndicatorsToGameGrid(word, userGuessParam) {
 
     // reset wordChars
     wordChars = {};
@@ -282,38 +282,6 @@ function countDuplicatedCharacters(word, userGuessParam) {
             insertUserGuessInBox[startRow + i].className = "boxBorder gray";
         }
     }
-}
-
-// Show color indicators to Game Grid
-function addColorIndicatorsToGameGrid(userGuess, word, attempts) {
-
-    const insertUserGuessInBox = document.querySelectorAll('.boxBorder')
-    
-    // Calculate which row to color
-    const startIndex = attempts * 5; // 5 columns per row
-
-    // Check if user guess includes any characters in the word and color it
-    for (let i = 0; i < userGuess.length; i++) {
-
-        // Check if it's the correct position
-        if (userGuess[i] === word[i]) {
-            insertUserGuessInBox[startIndex + i].className = "boxBorder green"
-        } 
-        else if (word.includes(userGuess[i]) || userGuess.includes(charCounts)) {
-
-            // Count how many times a letter appears in the word
-            // Track if its turned green so it's not replaced by another color
-
-            // Check if it's in the word but wrong position
-            insertUserGuessInBox[startIndex + i].className = "boxBorder yellow"
-        } 
-        else {
-
-            // Mark the letter as used
-            insertUserGuessInBox[startIndex + i].className = "boxBorder gray"
-        }
-    }
-
 }
 
 // Allow only alphabet letters
