@@ -1,6 +1,6 @@
 // Global variables
 
-let word = "Holas"; // The word to guess
+let word = ""; // The word to guess
 const maxAttempts = 6; // Maximum number of attempts allowed
 const wordLength = 5; // Length of the word to guess
 let attempts = 0; // Current number of attempts
@@ -11,10 +11,11 @@ let modal; // For the win and lose screen
 
 
 // Initialize when the page loads
+// It has to load async due to the API call.
 window.onload = async function() {
     
     // This has to be async and await; otherwise there is a timing issue.
-    const wordFromApi = await getWordFromApi()
+    const wordFromApi = await getWordFromApi();
 
     // Assign the results to word
     word = wordFromApi;
@@ -245,6 +246,8 @@ function countDuplicatedCharacters(word) {
 
         // If the character does not exist in the object, assign value of 0
         wordChars[char] = (wordChars[char] || 0) + 1; 
+        console.log("WordChars: ", wordChars);
+        
     }
 
     return wordChars;
@@ -260,7 +263,7 @@ function addColorIndicatorsToGameGrid(userGuess, word, attempts) {
     const startIndex = attempts * 5; // 5 columns per row
 
     // Get character counts from the word
-    const charCounts = countDuplicatedCharacters(word);
+    // const charCounts = countDuplicatedCharacters(word);
 
     // Check if user guess includes any characters in the word and color it
     for (let i = 0; i < userGuess.length; i++) {
