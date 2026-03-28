@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Each</title>
+</head>
+<body>
+
+    <h1>For Each</h1>
+    
+    <script>
+
+        function countVowels(word) {
+
+            let wordToLowerCase = word.toLowerCase();
+            wordToArray = wordToLowerCase.split("")
+            vowels = ["a", "e", "i", "o", "u"]
+
+            vowels.forEach(v => { document.write(v) })
+
+            document.write("<br>"); // Just a separator for clarity
+            
+            wordToArray.forEach(w => { document.write(w) })
+
+        }
+
+        countVowels("Mario")
+
+    </script>
+
+</body>
+</html>

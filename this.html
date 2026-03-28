@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This</title>
+</head>
+<body>
+    
+    <h1>This</h1>
+
+    <script>
+
+        // This is correct because it uses the word New
+        function User(name, age) {
+            this.name = name;
+            this.age = age;
+
+            this.greet = function() {
+                document.write("<br> Hello, I am: " + this.name + "<br>")
+                document.write("My age is: " + this.age + "<br>")
+
+            }
+        }
+
+        const player1 = new User("Mario", 54);
+        const player2 = new User("Sonia", 53);
+
+        player1.greet()
+        player2.greet()
+
+        // This is inccorrect but it works.
+        function userName(name, age) {
+
+            this.name = name;
+            this.age = age
+            return "<br>Complete name is: " + this.name + " " + " and age: " + this.age
+        }
+
+        document.write(userName("Alessi", 14))
+
+    </script>
+
+</body>
+</html>

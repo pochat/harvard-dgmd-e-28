@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count vowels</title>
+</head>
+<body>
+    
+    <h1>Count vowels</h1>
+
+    <script>
+
+        function countVowels(word) {
+
+            let vowels = ["a", "e", "i", "o", "u"]
+            let sumVowels = []
+
+            let wordLowerCase = word.toLowerCase();
+
+            for (i = 0; i < word.length; i++ ) {
+
+                if (vowels.includes(wordLowerCase[i])) {
+                    sumVowels.push(wordLowerCase[i])
+                }
+                
+            }
+            
+
+            document.write("The word is: " + wordLowerCase + "<br>")
+            document.write("The number of vowels are: " + sumVowels.length + "<br>")
+            document.write("The vowels are: " + sumVowels + "<br>")
+            
+        }
+
+        countVowels("Alessi is game boy");
+
+    </script>
+
+</body>
+</html>
