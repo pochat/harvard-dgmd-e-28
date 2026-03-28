@@ -1,6 +1,7 @@
 // Global variables
 
 let word = ""; // The word to guess
+let userGuessParam = ""; // To count number of characters in a word
 const maxAttempts = 6; // Maximum number of attempts allowed
 const wordLength = 5; // Length of the word to guess
 let attempts = 0; // Current number of attempts
@@ -21,7 +22,7 @@ window.onload = async function() {
     word = wordFromApi;
 
     // Show the word to guess in the console for the professors
-    console.log("Assignedd Word to guess: ", word);
+    console.log("Assigned Word to guess: ", word);
     
     // Set the initial variables and game settings
     const closeModal = document.getElementById("modalCloseID");
@@ -154,8 +155,8 @@ function guessWord() {
         insertUserGuessInBox[startRow + i].textContent = userGuess[i];
     }
 
-    // Display color indicators to the user
-    addColorIndicatorsToGameGrid(userGuess, word, attempts)
+    // Count duplicates and color the boxes
+    countDuplicatedCharacters(word, userGuess);
 
     // Color the used alphabet board
     addColorIndicatorsToUsedLetterBoard(userGuess, word)
@@ -240,18 +241,47 @@ function addColorIndicatorsToUsedLetterBoard(userGuess, word) {
 }
 
 // Function to check how many letters are duplicated
-function countDuplicatedCharacters(word) {
+function countDuplicatedCharacters(word, userGuessParam) {
+
+    // reset wordChars
+    wordChars = {};
+
+    // Reassign to userGuess
+    userGuess = userGuessParam;
+    
     for (i = 0; i < word.length; i++) {
         let char = word[i];
-
-        // If the character does not exist in the object, assign value of 0
         wordChars[char] = (wordChars[char] || 0) + 1; 
-        console.log("WordChars: ", wordChars);
-        
     }
+    console.log("WordChars: ", wordChars);
+    console.log("User Guess: ", userGuess);
 
-    return wordChars;
-    
+    const insertUserGuessInBox = document.querySelectorAll('.boxBorder');
+    const startRow = attempts * 5;
+
+    for (i = 0; i < userGuess.length; i++) {
+
+        // Color it green if it's in the correct position
+        if (wordChars[userGuess[i]] && word[i] === userGuess[i]) {
+            insertUserGuessInBox[startRow + i].className = "boxBorder green";
+
+            // Substract to decrease the number of duplicated characters
+            wordChars[userGuess[i]]--; 
+            console.log("all: " + userGuess[i]);
+        }
+
+        // Make it yellow
+        else if (wordChars[userGuess[i]] && word[i] != userGuess[i]) {
+            insertUserGuessInBox[startRow + i].className = "boxBorder yellow";
+
+            // Substract to decrease the number of duplicated characters
+            wordChars[userGuess[i]]--;
+            console.log("all: " + userGuess[i]);
+        }
+        else {
+            insertUserGuessInBox[startRow + i].className = "boxBorder gray";
+        }
+    }
 }
 
 // Show color indicators to Game Grid
@@ -261,9 +291,6 @@ function addColorIndicatorsToGameGrid(userGuess, word, attempts) {
     
     // Calculate which row to color
     const startIndex = attempts * 5; // 5 columns per row
-
-    // Get character counts from the word
-    // const charCounts = countDuplicatedCharacters(word);
 
     // Check if user guess includes any characters in the word and color it
     for (let i = 0; i < userGuess.length; i++) {
@@ -320,7 +347,7 @@ function usedLetterBoard(userGuess) {
         
         // Draw on the DOM
         usedLetterContainer.appendChild(usedLetterBox);
-        addColorIndicatorsToGameGrid(userGuess, word)
+        // addColorIndicatorsToGameGrid(userGuess, word)
     }
 
 }
