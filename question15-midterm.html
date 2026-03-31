@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question 15</title>
+</head>
+<body>
+    
+    <h1>Question 15</h1>
+
+    <script>
+
+        kai = [63, 77, 49, 87, 76]
+        gia = [94, 78, 69, 88, 62]
+        jo = [85, 98, 780, 100, 87]
+
+
+        function average(studentAverage) {
+
+        let sum = null;
+        let average = null;
+
+        for (i = 0; i < studentAverage.length; i++ ) {
+                    sum += studentAverage[i]
+                    
+                }
+
+        average = sum / studentAverage.length
+                
+        document.write("<br>The GPA is: " + average);
+
+        }
+
+        average(kai)
+        average(gia)
+        average(jo)
+
+        allArraysGPA = [...kai,...gia,...jo]
+        document.write("<br>Combined Arrays: " + allArraysGPA)
+
+    </script>
+</body>
+</html>

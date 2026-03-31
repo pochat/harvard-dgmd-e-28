@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map not a function</title>
+</head>
+<body>
+    <h1>Map not a function Error</h1>
+
+    <script>
+
+        function useMap(numbersArray) {
+
+            initialArray = [];
+            initialArray = numbersArray;
+            mapArray = [];
+            let sum = null;
+
+            for (i = 0; i < initialArray.length; i++) {
+
+                document.write("<br>initial array: " + initialArray[i])
+                mapArray = initialArray.map(n => n += 2)
+                
+            }
+
+            document.write("<br>Sum map array: " + mapArray)
+            
+            sortedArray = initialArray.sort((a, b) => a - b)
+            document.write("<br>Sorted array: " + sortedArray)
+            document.write("<br>Largest Number: " + (sortedArray.length - 1))
+
+        }
+
+        useMap([50,21,13,90,4])
+
+    </script>
+</body>
+</html>

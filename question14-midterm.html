@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question 14</title>
+</head>
+<body>
+    <h1>Question 14</h1>
+    
+    <script>
+
+        function Student(name, grade) {
+            this.name = name;
+            this.grade = [];
+
+
+            // Methods
+            // Calculate average
+            this.gradeAverage = function() {
+                
+                let sum = null
+                let average = null
+
+                for (i = 0; i < grade.length; i++ ) {
+                    sum += grade[i]
+                }
+
+                average = sum / grade.length
+
+                document.write("<br> Sum: " + sum)
+                document.write("<br> Average: " + average)
+
+            }
+
+            // Render on browser
+            this.show = function() {
+                
+                document.write("<br> Name: " + name + " " + "GPA: " + grade)
+
+            }
+        }
+
+        const student1 = new Student("Mario", [89, 90, 78])
+        const student2 = new Student("Liza", [34, 90, 50])
+
+        student1.show()
+        student1.gradeAverage()
+        student2.show()
+        student2.gradeAverage()
+
+    </script>
+</body>
+</html>

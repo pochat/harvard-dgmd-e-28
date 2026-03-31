@@ -1,0 +1,30 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reduce Method</title>
+</head>
+<body>
+    <h1>Reduce Method</h1>
+
+    <script>
+
+// Reference
+// https://www.youtube.com/watch?v=PojpwEbOQJg
+        function average(gradeValues) {
+            grades = gradeValues;
+
+            const gpa = grades.reduce((total, currentGPA) => {
+                return total + currentGPA / grades.length
+
+            }, 0)
+
+            document.write("GPA: " + gpa.toFixed(1))
+            
+        }
+
+        average([6, 7, 10])
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q13 midterm</title>
+</head>
+<body>
+    
+    <h1>Q13 midterm </h1>
+
+    <script>
+
+        function randomNumber() {
+
+            let x = [];
+            let newArray = [];
+            arrayMap = [];
+            sortedNumbers = [];
+
+            for (i = 0; i <=5; i++) {
+
+                x = Math.floor(Math.random() * 50)
+                // document.write("Random numbers: " + x + "<br>")
+                
+                newArray.push(x)
+                // document.write("New: " + newArray + "<br>")
+                
+                sortedNumbers = newArray.sort((a, b) => a - b)
+                document.write("Sorted: " + sortedNumbers + "<br>")
+                
+            }
+            
+            document.write("<br> Largest number: " + sortedNumbers[5])
+
+
+        }
+
+        randomNumber();
+
+    </script>
+
+</body>
+</html>
+

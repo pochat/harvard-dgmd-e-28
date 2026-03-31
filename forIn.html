@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For In</title>
+</head>
+<body>
+    <h1>For in</h1>
+
+    <script>
+
+        const numbers = [10,20,30,40,50]
+
+        // OF gives you the content
+        for ( const value of numbers ) {
+            document.write("For: " + value + "<br>")
+        }
+
+        // IN gives you the index
+        for ( const value in numbers ) {
+            document.write("In: " + value + "<br>")
+        }
+
+        const array = ["a", "b", "c"];
+
+        for (const element of array) {
+            document.write(element);
+        }
+
+    </script>
+</body>
+</html>
