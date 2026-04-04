@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <title>Wordle Redux</title>
+
+    <style type="text/css">
+        .box {
+            display: flex;
+            border: 2px solid red;
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="myWorldleGameTitle"></div>
+    <div id="myWorldleBoard"></div>
+
+    <script>
+        // Build an array of divs
+        var divArray = [];
+        divArray.push(React.createElement('div', {className: 'box'}, null, "A", ));
+        divArray.push(React.createElement('div', {className: 'box'}, null, "B"));
+        divArray.push(React.createElement('div', {className: 'box'}, null, "C"));
+
+
+        // Wrap in a parent div and render
+        var worldeBoard = React.createElement("div", null, ...divArray);
+
+        const boardRoot = ReactDOM.createRoot(document.querySelector("#myWorldleBoard"));
+        boardRoot.render(worldeBoard);
+    </script>
+
+</body>
+</html>

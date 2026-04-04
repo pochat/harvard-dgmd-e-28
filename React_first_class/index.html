@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React first class</title>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <style type = “text/css”>
+        h1 {font-size: 38px; color: #b41d1d};
+        quote {font-size: 38px; color: #b41d1d};
+
+    </style>
+
+</head>
+<body>
+    
+    <div id="myapp"></div>
+    <div id="quoteapp"></div>
+    <div id="selectapp"></div>
+    <div id="movieapp"></div>
+    <div id="linkapp"></div>
+
+    <script>
+        var hello = React.createElement("h1",{id:"main"},"Helloz React World!");
+        const myroot = ReactDOM.createRoot(document.querySelector("#myapp"));
+
+        myroot.render(hello);
+
+        const myquote = ReactDOM.createRoot(document.querySelector("#quoteapp"));
+        
+        var text = React.createElement("p", {id:"second", className:"quote"}, "Four score and seven years ago")
+        
+        myquote.render(text);
+
+        const myselect = ReactDOM.createRoot(document.querySelector("#selectapp"));
+        
+        var select = React.createElement("select",{name:"pick"},
+            React.createElement("option",null,"Basic"),    
+            React.createElement("option",null,"Standard"), 
+            React.createElement("option",null,"Premium")
+            );
+        myselect.render(select);
+
+        const mymovie = ReactDOM.createRoot(document.querySelector("#movieapp"));
+        
+        var movieList = React.createElement("ol", {id:"movies", className:"quote"}, "Movies")
+        
+        mymovie.render(movieList);
+        
+        const mylink = ReactDOM.createRoot(document.querySelector("#linkapp"));
+        
+        var movieLink = React.createElement("a", {id:"imdb", className:"quote"}, "Imdb.com")
+        
+        mylink.render(movieLink);
+
+
+    </script>
+
+
+</body>
+</html>
