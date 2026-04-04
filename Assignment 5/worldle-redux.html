@@ -1,3 +1,7 @@
+<!-- This program is a hardcoded version of Wordle -->
+<!-- We are practicing the first code syntax of React -->
+<!-- URL: https://pochat.github.io/harvard-dgmd-e-28/Assignment%205/worldle-redux.html -->
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,6 +13,9 @@
     <title>Wordle Redux</title>
 
     <style type="text/css">
+        .board {
+            display: flex; /* render boxes horinzontally */
+        }
         .box {
             display: flex;
             border: 2px solid red;
@@ -35,7 +42,7 @@
 
 
         // Wrap in a parent div and render
-        var worldeBoard = React.createElement("div", null, ...divArray);
+        var worldeBoard = React.createElement("div", {className: 'board'}, null, divArray);
 
         const boardRoot = ReactDOM.createRoot(document.querySelector("#myWorldleBoard"));
         boardRoot.render(worldeBoard);
