@@ -13,8 +13,15 @@
     <title>Wordle Redux</title>
 
     <style type="text/css">
+        .title {
+            display: flex;
+            justify-content: center;
+            color: gray;
+        }
         .board {
             display: flex; /* render boxes horinzontally */
+            width: 300px;
+            margin: auto;
         }
         .box {
             display: flex;
@@ -34,15 +41,72 @@
     <div id="myWorldleBoard"></div>
 
     <script>
-        // Build an array of divs
-        var divArray = [];
-        divArray.push(React.createElement('div', {className: 'box'}, null, "A", ));
-        divArray.push(React.createElement('div', {className: 'box'}, null, "B"));
-        divArray.push(React.createElement('div', {className: 'box'}, null, "C"));
 
+        // Title
+        var title = React.createElement("h1",{className: 'Title'},"Worldle Redux");
+        const titleRoot = ReactDOM.createRoot(document.querySelector("#myWorldleGameTitle"));
+        titleRoot.render(title);
+
+        // Build an array of divs
+        
+        // Might
+        var row1 = [];
+        row1.push(React.createElement('div', {className: 'box'}, "M"));
+        row1.push(React.createElement('div', {className: 'box'}, "I"));
+        row1.push(React.createElement('div', {className: 'box'}, "G"));
+        row1.push(React.createElement('div', {className: 'box'}, "H"));
+        row1.push(React.createElement('div', {className: 'box'}, "T"));
+        
+        // Flood
+        var row2 = [];
+        row2.push(React.createElement('div', {className: 'box'}, "F"));
+        row2.push(React.createElement('div', {className: 'box'}, "L"));
+        row2.push(React.createElement('div', {className: 'box'}, "O"));
+        row2.push(React.createElement('div', {className: 'box'}, "O"));
+        row2.push(React.createElement('div', {className: 'box'}, "D"));
+        
+        // Stray
+        var row3 = [];
+        row3.push(React.createElement('div', {className: 'box'}, "S", ));
+        row3.push(React.createElement('div', {className: 'box'}, "T"));
+        row3.push(React.createElement('div', {className: 'box'}, "R"));
+        row3.push(React.createElement('div', {className: 'box'}, "A"));
+        row3.push(React.createElement('div', {className: 'box'}, "Y"));
+        
+        // Empty
+        var row4 = [];
+        row4.push(React.createElement('div', {className: 'box'}, ""));
+        row4.push(React.createElement('div', {className: 'box'}, ""));
+        row4.push(React.createElement('div', {className: 'box'}, ""));
+        row4.push(React.createElement('div', {className: 'box'}, ""));
+        row4.push(React.createElement('div', {className: 'box'}, ""));
+        
+        // Empty
+        var row5 = [];
+        row5.push(React.createElement('div', {className: 'box'}, ""));
+        row5.push(React.createElement('div', {className: 'box'}, ""));
+        row5.push(React.createElement('div', {className: 'box'}, ""));
+        row5.push(React.createElement('div', {className: 'box'}, ""));
+        row5.push(React.createElement('div', {className: 'box'}, ""));
+        // Empty
+        
+        var row6 = [];
+        row6.push(React.createElement('div', {className: 'box'}, ""));
+        row6.push(React.createElement('div', {className: 'box'}, ""));
+        row6.push(React.createElement('div', {className: 'box'}, ""));
+        row6.push(React.createElement('div', {className: 'box'}, ""));
+        row6.push(React.createElement('div', {className: 'box'}, ""));
+
+        // Render using a spread operator
+        var boardRow1 = React.createElement("div", {className: 'board'}, ...row1);
+        var boardRow2 = React.createElement("div", {className: 'board'}, ...row2);
+        var boardRow3 = React.createElement("div", {className: 'board'}, ...row3);
+        var boardRow4 = React.createElement("div", {className: 'board'}, ...row4);
+        var boardRow5 = React.createElement("div", {className: 'board'}, ...row5);
+        var boardRow6 = React.createElement("div", {className: 'board'}, ...row6);
 
         // Wrap in a parent div and render
-        var worldeBoard = React.createElement("div", {className: 'board'}, null, divArray);
+        var worldeBoard = React.createElement("div", null, boardRow1, boardRow2, boardRow3, boardRow4, boardRow5, boardRow6);
 
         const boardRoot = ReactDOM.createRoot(document.querySelector("#myWorldleBoard"));
         boardRoot.render(worldeBoard);
