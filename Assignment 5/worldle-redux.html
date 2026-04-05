@@ -22,7 +22,7 @@
             display: flex;
             justify-content: center;
             color: gray;
-            size: 16px;
+            size: 14px;
         }
         .board {
             display: flex; /* render boxes horinzontally */
@@ -65,7 +65,7 @@
         
         
         // Render the used letter board
-        var titleUsedLetter = React.createElement("h1",{className: 'subTitle'},"Used Letter Board");
+        var titleUsedLetter = React.createElement("h2",{className: 'subTitle'},"Used Letter Board");
         
         const subTitleRoot = ReactDOM.createRoot(document.querySelector("#myUsedLetterSubTitle"));
         subTitleRoot.render(titleUsedLetter);
