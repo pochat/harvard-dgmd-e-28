@@ -18,14 +18,28 @@
             justify-content: center;
             color: gray;
         }
+        .subTitle {
+            display: flex;
+            justify-content: center;
+            color: gray;
+            size: 16px;
+        }
         .board {
             display: flex; /* render boxes horinzontally */
-            width: 300px;
+            flex-wrap: wrap;
+            width: 350px;
+            margin: auto;
+        }
+        .usedLetterBoard {
+            display: flex; /* render boxes horinzontally */
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 80%;
             margin: auto;
         }
         .box {
             display: flex;
-            border: 2px solid red;
+            border: 2px solid gray;
             width: 50px;
             height: 50px;
             margin: 5px;
@@ -39,6 +53,8 @@
 
     <div id="myWorldleGameTitle"></div>
     <div id="myWorldleBoard"></div>
+    <div id="myUsedLetterSubTitle"></div>
+    <div id="myUsedLetterBoard"></div>
 
     <script>
 
@@ -46,9 +62,29 @@
         var title = React.createElement("h1",{className: 'Title'},"Worldle Redux");
         const titleRoot = ReactDOM.createRoot(document.querySelector("#myWorldleGameTitle"));
         titleRoot.render(title);
-
-        // Build an array of divs
         
+        
+        // Render the used letter board
+        var titleUsedLetter = React.createElement("h1",{className: 'subTitle'},"Used Letter Board");
+        
+        const subTitleRoot = ReactDOM.createRoot(document.querySelector("#myUsedLetterSubTitle"));
+        subTitleRoot.render(titleUsedLetter);
+
+        // Allow Letters only
+        const alphabet = [
+        "A","B","C","D","E","F","G","H","I","J","K","L","M",
+        "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
+        ];
+
+        // Map it and render using an spread operator
+        var usedLetterBoard = React.createElement('div', {className: 'usedLetterBoard'}, 
+            ...alphabet.map((letter, index) => React.createElement("div", {key: index, className: 'box'}, letter))
+        );
+
+        const usedLetterBoardRoot = ReactDOM.createRoot(document.querySelector("#myUsedLetterBoard"));
+        usedLetterBoardRoot.render(usedLetterBoard);
+        
+        // Build the gameboard array of divs
         // Might
         var row1 = [];
         row1.push(React.createElement('div', {className: 'box'}, "M"));
