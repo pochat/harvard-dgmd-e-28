@@ -1,0 +1,287 @@
+<!-- This program is a hardcoded version of Wordle -->
+<!-- We are practicing the first code syntax of React -->
+<!-- Essntially, I used the fucntions from the origina JS -->
+<!-- and replaced the document.write withe React.createElement -->
+
+<!-- Things to notice and remember -->
+<!-- Properties like className go inside {} as the second argument instead of being set line by line -->
+
+<!-- URL: https://pochat.github.io/harvard-dgmd-e-28/Assignment%205/redux-logic.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle React Redux</title>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <style>
+        body { 
+            font-family: sans-serif; 
+            display: flex;
+            margin: auto;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem; background: #f9f9f9; 
+        }
+        .gameContainer { 
+            display: grid; 
+            grid-template-columns: repeat(5, 52px); 
+            gap: 6px; 
+            margin-bottom: 1.5rem;
+        }
+        .usedLettersContainer {
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 4px; 
+            max-width: 340px; 
+        }
+        .boxBorder { display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 52px; 
+            height: 52px; 
+            border: 2px solid #ccc;
+            font-size: 1.4rem; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            border-radius: 4px; }
+        .boxBorder.green  { 
+            background: #538d4e; 
+            color: white; 
+            border-color: #538d4e; 
+        }
+        .boxBorder.yellow { 
+            background: #b59f3b; 
+            color: white; 
+            border-color: #b59f3b; 
+        }
+        .boxBorder.gray   { 
+            background: #787c7e; 
+            color: white; 
+            border-color: #787c7e; 
+        }
+        .letterTile { 
+            text-align: center;
+            margin: auto;
+            width: 34px; 
+            height: 34px; 
+            font-size: 0.85rem; 
+            border-width: 1.5px;
+        }
+        h1 { 
+            margin: auto;
+            text-align: center;
+            font-size: 2rem; 
+            margin-bottom: 0.25rem;
+        }
+        p  { 
+            text-align: center;
+            color: #555; 
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="myWordleGameTitle"></div>
+    <div id="myWordleBoard"></div>
+    <div id="myUsedLetterSubTitle"></div>
+    <div id="myUsedLetterBoard"></div>
+
+    <script>
+
+        // Global variables
+        const word = "MOODY"; // The word to guess
+        const hardCodedGuesses = ["MIGHT", "FLOOD", "STRAY"]; // Hard coded guesses for the assignment
+        const maxAttempts = 6; // Maximum number of attempts allowed
+        const wordLength = 5; // Length of the word to guess
+        let insertUserGuessInBox = []; // Holds the scored letter objects for each guess
+        let alphabetBoxes = {};  // Holds the best color for each letter of the alphabet
+
+
+        // Run these functions on load — same pattern as my original window.onload
+        addColorIndicatorsToGameGrid();
+        addColorIndicatorsToUsedLetterBoard();
+        drawTitle();
+        drawBoard();
+        drawUsedLetterBoard();
+
+
+        // Adapted from my addColorIndicatorsToGameGrid()
+        // Instead of coloring DOM elements directly, this function builds
+        // insertUserGuessInBox — an array of letter objects with colors.
+        // Each object looks like: { letter: "M", color: "green" }
+        function addColorIndicatorsToGameGrid() {
+
+            for (let currentGuess = 0; currentGuess < hardCodedGuesses.length; currentGuess++) {
+
+                let userGuess = hardCodedGuesses[currentGuess];
+
+                // Count how many times each character appears in the word
+                // Same duplicate-handling logic as my original Worldle
+                let wordChars = {};
+                for (let i = 0; i < word.length; i++) {
+                    let char = word[i];
+                    wordChars[char] = (wordChars[char] || 0) + 1;
+                }
+
+                // Build one row of letter objects for this guess
+                // Each box starts as gray and gets updated below
+                let newTextBox = [];
+                for (let i = 0; i < userGuess.length; i++) {
+                    newTextBox[i] = { letter: userGuess[i], color: "gray" };
+                }
+
+                // First pass: mark greens (correct letter, correct position)
+                for (let i = 0; i < userGuess.length; i++) {
+                    if (word[i] === userGuess[i]) {
+                        newTextBox[i].color = "green";
+                        wordChars[userGuess[i]]--; // Subtract to decrease the number of duplicated characters
+                    }
+                }
+
+                // Second pass: mark yellows (correct letter, wrong position)
+                for (let i = 0; i < userGuess.length; i++) {
+                    if (newTextBox[i].color === "green") {
+                        continue;
+                    }
+                    if (wordChars[userGuess[i]] > 0) {
+                        newTextBox[i].color = "yellow";
+                        wordChars[userGuess[i]]--; // Subtract to decrease the number of duplicated characters
+                    }
+                }
+
+                insertUserGuessInBox.push(newTextBox);
+            }
+        }
+
+
+        // Adapted from addColorIndicatorsToUsedLetterBoard()
+        // Instead of coloring DOM spans directly, this function builds
+        // alphabetBoxes — an object that holds the best color for each letter.
+        // Green beats yellow, yellow beats gray.
+        function addColorIndicatorsToUsedLetterBoard() {
+
+            for (let row = 0; row < insertUserGuessInBox.length; row++) {
+
+                let scoredGuess = insertUserGuessInBox[row];
+
+                for (let column = 0; column < scoredGuess.length; column++) {
+
+                    let letter = scoredGuess[column].letter;
+                    let color  = scoredGuess[column].color;
+
+                    // Upgrade the color if this guess gives us better info
+                    // Green beats yellow, yellow beats gray
+                    if (color === "green") {
+                        alphabetBoxes[letter] = "green";
+                    } else if (color === "yellow" && alphabetBoxes[letter] !== "green") {
+                        alphabetBoxes[letter] = "yellow";
+                    } else if (color === "gray" && alphabetBoxes[letter] !== "green" && alphabetBoxes[letter] !== "yellow") {
+                        alphabetBoxes[letter] = "gray";
+                    }
+                }
+            }
+        }
+
+
+        // Draws the game title and subtitle
+        // React.createElement is the React version of document.createElement
+        function drawTitle() {
+
+            let gameTitle    = React.createElement("h1", null, "Wordle");
+            let gameSubtitle = React.createElement("p", null, "Harvard DGMD-28 — Mario Pochat");
+            let titleSection = React.createElement("div", null, gameTitle, gameSubtitle);
+
+            const myWordleGameTitle = ReactDOM.createRoot(document.getElementById("myWordleGameTitle"));
+            myWordleGameTitle.render(titleSection);
+        }
+
+
+        // Adapted from drawBoard()
+        // Instead of appending spans to the DOM, we build an array of
+        // React elements and let React draw them.
+        function drawBoard() {
+
+            let gameContainer = [];
+
+            for (let row = 0; row < maxAttempts; row++) {
+                for (let column = 0; column < wordLength; column++) {
+
+                    // If this row has a guess, use the scored letter object
+                    // If not (empty row), show a blank box
+                    let box;
+
+                    if (insertUserGuessInBox[row]) {
+                        box = insertUserGuessInBox[row][column];
+                    } else {
+                        box = { letter: "", color: "" };
+                    }
+
+                    // Build the class string the same way as the original:
+                    // className = "boxBorder green" or "boxBorder yellow" etc.
+                    let className = "boxBorder";
+                    if (box.color !== "") {
+                        className = className + " " + box.color;
+                    }
+
+                    // React.createElement is the React version of document.createElement
+                    // React.createElement( tagName, properties, content )
+                    let newTextBox = React.createElement("span", { key: row + "-" + column, className: className }, box.letter);
+                    gameContainer.push(newTextBox);
+                }
+            }
+
+            // Wrap all the boxes in the game container div and mount it
+            let gameBoard = React.createElement("div", { className: "gameContainer" }, ...gameContainer);
+
+            const myWordleBoard = ReactDOM.createRoot(document.getElementById("myWordleBoard"));
+            myWordleBoard.render(gameBoard);
+        }
+
+
+        // Adapted from usedLetterBoard()
+        // Same loop as my original alphabet() function, but creates React
+        // elements instead of DOM nodes.
+        function drawUsedLetterBoard() {
+
+            // Draw the subtitle first
+            let usedLetterSubTitle = React.createElement("p", null, "Letters used:");
+
+            const myUsedLetterSubTitle = ReactDOM.createRoot(document.getElementById("myUsedLetterSubTitle"));
+            myUsedLetterSubTitle.render(usedLetterSubTitle);
+
+            // Draw the alphabet tiles
+            let usedLetterContainer = [];
+
+            for (let i = 65; i <= 90; i++) {
+
+                let letter = String.fromCharCode(i);
+                let color  = alphabetBoxes[letter] || "";
+
+                // Build the class string
+                let className = "boxBorder letterTile";
+                if (color !== "") {
+                    className = className + " " + color;
+                }
+
+                let usedLetterBox = React.createElement("span", { key: i, className: className }, letter);
+                usedLetterContainer.push(usedLetterBox);
+            }
+
+            // Wrap all the letter boxes in the used letter container div and mount it
+            let usedLetterBoard = React.createElement("div", { className: "usedLettersContainer" }, ...usedLetterContainer);
+
+            const myUsedLetterBoard = ReactDOM.createRoot(document.getElementById("myUsedLetterBoard"));
+            myUsedLetterBoard.render(usedLetterBoard);
+        }
+
+    </script>
+
+</body>
+</html>
