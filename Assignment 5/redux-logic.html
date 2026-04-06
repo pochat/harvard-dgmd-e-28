@@ -1,9 +1,9 @@
 <!-- This program is a hardcoded version of Wordle -->
 <!-- We are practicing the first code syntax of React -->
-<!-- Essntially, I used the fucntions from the origina JS -->
 <!-- and replaced the document.write withe React.createElement -->
 
 <!-- Things to notice and remember -->
+<!-- document.write is equivalent to React.createElement -->
 <!-- Properties like className go inside {} as the second argument instead of being set line by line -->
 
 <!-- URL: https://pochat.github.io/harvard-dgmd-e-28/Assignment%205/redux-logic.html -->
@@ -104,7 +104,8 @@
         let alphabetBoxes = {};  // Holds the best color for each letter of the alphabet
 
 
-        // Run these functions on load — same pattern as my original window.onload
+        // Run these functions on load — similar as my original window.onload
+        // No need for window.onload becuase the script is in the body
         addColorIndicatorsToGameGrid();
         addColorIndicatorsToUsedLetterBoard();
         drawTitle();
@@ -156,6 +157,7 @@
                     }
                 }
 
+                // Add to array
                 insertUserGuessInBox.push(newTextBox);
             }
         }
@@ -194,7 +196,7 @@
         // React.createElement is the React version of document.createElement
         function drawTitle() {
 
-            let gameTitle    = React.createElement("h1", null, "Wordle");
+            let gameTitle    = React.createElement("h1", null, "Wordle Redux");
             let gameSubtitle = React.createElement("p", null, "Harvard DGMD-28 — Mario Pochat");
             let titleSection = React.createElement("div", null, gameTitle, gameSubtitle);
 
@@ -227,7 +229,7 @@
                     // className = "boxBorder green" or "boxBorder yellow" etc.
                     let className = "boxBorder";
                     if (box.color !== "") {
-                        className = className + " " + box.color;
+                        className = className + " " + box.color; //add a space like "boxBorder green"
                     }
 
                     // React.createElement is the React version of document.createElement
@@ -267,14 +269,14 @@
                 // Build the class string
                 let className = "boxBorder letterTile";
                 if (color !== "") {
-                    className = className + " " + color;
+                    className = className + " " + color; //add a space like "boxBorder green"
                 }
 
                 let usedLetterBox = React.createElement("span", { key: i, className: className }, letter);
                 usedLetterContainer.push(usedLetterBox);
             }
 
-            // Wrap all the letter boxes in the used letter container div and mount it
+            // Wrap all the letter boxes in the used letter container div
             let usedLetterBoard = React.createElement("div", { className: "usedLettersContainer" }, ...usedLetterContainer);
 
             const myUsedLetterBoard = ReactDOM.createRoot(document.getElementById("myUsedLetterBoard"));
