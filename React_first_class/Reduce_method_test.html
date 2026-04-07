@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mario Test</title>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+</head>
+<body>
+    
+    <h1>Reduce Me</h1>
+    <div id="myapp"></div>
+
+    <script> 
+
+        function reduceMe(numbers) {
+
+            totalPrice = numbers.reduce((accumulator, currentValue) => {
+
+                return accumulator + currentValue
+                
+            }, 0) // <- The 0 initializes the first argument
+            console.log(totalPrice);
+            document.write("Vanilla JS Resutl is: " + totalPrice )
+
+            // React
+            const myreduce = ReactDOM.createRoot(document.querySelector("#myapp"));
+            var reduceResults = React.createElement("div", null, "React Total price: " + totalPrice)
+            myreduce.render(reduceResults);
+        }
+
+    reduceMe([1, 2, 9]) // <- Pass as an array
+
+
+    </script>
+
+</body>
+</html>
+<!-- 
+        function average(gradeValues) {
+            grades = gradeValues;
+
+            const gpa = grades.reduce((total, currentGPA) => {
+                return total + currentGPA / grades.length
+
+            }, 0)
+
+            document.write("GPA: " + gpa.toFixed(1))
+            
+        }
+
+        average([6, 7, 10]) -->
