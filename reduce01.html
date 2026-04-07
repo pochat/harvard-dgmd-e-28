@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reduce Test</title>
+</head>
+<body>
+    <h1>Reduce test 2</h1>
+    
+    <script>
+
+        function reduceMe(numbers) {
+
+            const sum = numbers.reduce((firstNumber, secondNumber) => {
+                return firstNumber + secondNumber;
+            }, 0) // <- Don't forget to initalize the count
+
+            document.write("Total sum: " + sum)
+        }
+
+        reduceMe([1,4,5])
+
+    </script>
+</body>
+</html>
