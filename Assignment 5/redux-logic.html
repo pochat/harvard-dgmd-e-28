@@ -104,7 +104,6 @@
         let alphabetBoxes = {};  // Holds the best color for each letter of the alphabet
 
 
-        // Run these functions on load — similar as my original window.onload
         // No need for window.onload becuase the script is in the body
         addColorIndicatorsToGameGrid();
         addColorIndicatorsToUsedLetterBoard();
@@ -115,7 +114,7 @@
 
         // Adapted from my addColorIndicatorsToGameGrid()
         // Instead of coloring DOM elements directly, this function builds
-        // insertUserGuessInBox — an array of letter objects with colors.
+        // insertUserGuessInBox, an array of letter objects with colors.
         // Each object looks like: { letter: "M", color: "green" }
         function addColorIndicatorsToGameGrid() {
 
