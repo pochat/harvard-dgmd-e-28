@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js">
+</script>
+</head>
+<body>
+    
+    <h1>React Components</h1>
+    <div id="myReact"></div>
+
+
+    <script type="text/babel">
+
+        function MyPageTitle() {
+            return React.createElement("h1", null, "Hola mundo")
+        }
+
+        // const theTitle = MyPageTitle()
+        // const theTitle1 = React.createElement(MyPageTitle, null, null)
+        const theTitle1 = MyPageTitle()
+
+        const myRoot = ReactDOM.createRoot(document.getElementById("myReact"));
+        myRoot.render(theTitle1)
+
+    </script>
+
+</body>
+</html>
