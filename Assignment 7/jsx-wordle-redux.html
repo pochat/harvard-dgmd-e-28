@@ -101,7 +101,7 @@
         let insertUserGuessInBox = [];
         let alphabetBoxes = {};
 
-        // Regular JS function
+        // Regular JS function, not converted to component
         function addColorIndicatorsToGameGrid() {
 
             for (let currentGuess = 0; currentGuess < hardCodedGuesses.length; currentGuess++) {
@@ -147,7 +147,7 @@
             }
         }
 
-            // Regular JS function
+        // Regular JS function, not converted to a component
         function addColorIndicatorsToUsedLetterBoard() {
 
             for (let row = 0; row < insertUserGuessInBox.length; row++) {
@@ -172,7 +172,7 @@
             }
         }
 
-        // JSX Component
+        // JSX Component because it returns UI elements
         function Title() {
             return(
                 <div>
@@ -182,7 +182,7 @@
             )
         }
 
-        // JSX Component
+        // JSX Component because it returns UI elements
         function DrawBoard() {
 
             let gameContainer = [];
@@ -220,7 +220,7 @@
             )
         }
 
-    // JSX Component
+    // JSX Component because it returns UI elements
     function DrawUsedLetterBoard() {
 
             // Draw the alphabet tiles
