@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+
+    <h1>JSX Reduce</h1>
+    <div id="myapp"></div>
+
+    <script type="text/babel">
+
+        // function total(numbers) {
+
+        //     numbers.reduce((accumulator, sum) => {
+        //         return total = accumulator + sum
+        //     }, 0) 
+                
+
+        //     document.write("Total: " + total)
+        // }
+
+        // total([1,2])
+
+        function Total({ numbers }) {
+
+            return(
+
+                <div>
+                    <h1>Total is:<span>&nbsp;</span>
+                    {
+                        numbers.reduce((accumulator, current) => {
+                            return accumulator + current
+                        }, 0) 
+                    }
+                    </h1>
+                </div>
+
+            )
+
+            
+        }
+        const myRoot = ReactDOM.createRoot(document.getElementById("myapp"))
+        myRoot.render(<Total numbers={ [1, 2] } />)
+
+    </script>
+    
+</body>
+</html>

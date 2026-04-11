@@ -9,23 +9,22 @@
 </script>
 </head>
 <body>
-    
-    <h1>React Components</h1>
+    <h1>JSX test 2</h1>
     <div id="myReact"></div>
-
 
     <script type="text/babel">
 
-        function MyPageTitle() {
-            return React.createElement("h1", null, "Hola mundo")
-        }
+        function Hello2() {
+            return (
+                <h1>Hola JSX Test 3</h1>
+            )
 
-        const theTitle1 = React.createElement(MyPageTitle, null, null)
+        }
+        const theHello = <Hello2 />
 
         const myRoot = ReactDOM.createRoot(document.getElementById("myReact"));
-        myRoot.render(theTitle1)
+        myRoot.render(theHello)
 
     </script>
-
 </body>
 </html>

@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+    <h1>JSX Strings</h1>
+    <div id="myapp"></div>
+
+    <script type="text/babel">
+
+        function Names ({name1, name2}) {
+            return (
+                <div>
+                    <div>
+                        { name1 + " " + name2 }
+                    </div>
+                </div>
+
+            )
+        }
+
+        const myRoot = ReactDOM.createRoot(document.getElementById("myapp"))
+        myRoot.render(
+            <> 
+                <Names name1={"Sonia"} name2={"Mario"} />
+                <Names name1={"Alessi"} name2={"Matisse"} />
+            </>
+        )
+
+    </script>
+    
+</body>
+</html>
