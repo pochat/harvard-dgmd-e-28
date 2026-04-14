@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Props Practice</title>
+
+    <style>
+    
+        .student {
+            color: blue;
+            font-weight: bold;
+        }
+
+        .grade {
+            color: blueviolet;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div id="myapp"></div>
+
+    <script type="text/babel">
+
+        function Title() {
+            return(
+                <h1>Props Practice II</h1>
+            )
+        }
+
+        function Students(props) {
+            return(
+
+            <div>
+                <span className="student">Name: { props.name } </span>
+                <span className="grade">Grade: { props.grade } </span>
+                <span className="gpa"> GPA: { props.gpa } </span>
+            </div>
+
+            )
+        }
+
+        function App() {
+            return(
+
+                <div>
+                    <Title />
+                    <Students name={ 'Mario' } grade={ 8 } gpa={3.5} />
+                    <Students name={ 'Sonia' } grade={ 9 } gpa={4} />
+                </div>
+
+            )
+        }
+
+        const myroot = ReactDOM.createRoot(document.getElementById('myapp'));
+        myroot.render(<App />)
+
+    </script>
+    
+</body>
+</html>

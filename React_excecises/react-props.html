@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React props</title>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+
+    <div id="myapp"></div>
+
+    <script type="text/babel">
+
+        function Card(props) {
+            return(
+                <div>
+                    <h2>Hello {props.name}</h2>
+                    <p>You are {props.age} years of age</p>    
+                </div>
+            )
+        }
+
+        function App() {
+            return(
+                <div>
+                    <Card name={"Mario"} age={35}/>
+                    <Card name={"Sonia"} age={35}/>
+                    <Card name={"Matisse"} age={35}/>
+                    <Card name={"Alessi"} age={35}/>
+                </div>
+            )
+        }
+
+        const myroot = ReactDOM.createRoot(document.getElementById("myapp"));
+        myroot.render()
+        myroot.render(<App />)
+
+    </script>
+    
+</body>
+</html>

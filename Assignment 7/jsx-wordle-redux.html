@@ -1,8 +1,8 @@
 <!-- This program uses React JSX -->
 <!-- It is based on the previous World Redux assignment -->
-<!-- To notice, some fucntions were left intact -->
-<!-- Other fucntions were converted into a React Component -->
-<!-- If the funtion returned any UI, it was converted to a component -->
+<!-- To notice, some fucntions were left intact but -->
+<!-- other fucntions were converted into a React Component -->
+<!-- If the function returned any UI elements, it was converted to a JSX component -->
 <!-- URL: https://pochat.github.io/harvard-dgmd-e-28/Assignment%207/jsx-wordle-redux.html -->
 <html lang="en">
 <head>
@@ -101,7 +101,7 @@
         let insertUserGuessInBox = [];
         let alphabetBoxes = {};
 
-        // Regular JS function, not converted to component
+        // Regular JS function, not converted to a React JSX component
         function addColorIndicatorsToGameGrid() {
 
             for (let currentGuess = 0; currentGuess < hardCodedGuesses.length; currentGuess++) {
@@ -147,7 +147,7 @@
             }
         }
 
-        // Regular JS function, not converted to a component
+        // Regular JS function, not converted to a React JSX component
         function addColorIndicatorsToUsedLetterBoard() {
 
             for (let row = 0; row < insertUserGuessInBox.length; row++) {
@@ -173,16 +173,19 @@
         }
 
         // JSX Component because it returns UI elements
+        // This is the title and subtitle of the page
         function Title() {
             return(
                 <div>
-                    <h1>Wordle Redux in JSX</h1>
+                    <h1>Wordle Redux in React JSX</h1>
                     <p>Harvard DGMD-28 - Mario Pochat</p>    
+                    <p>Date: April 14, 2026</p>    
                 </div>
             )
         }
 
-        // JSX Component because it returns UI elements
+        // Converted to a JSX Component because it returns UI elements
+        // This component renders the divs on the browser
         function DrawBoard() {
 
             let gameContainer = [];
@@ -221,6 +224,8 @@
         }
 
     // JSX Component because it returns UI elements
+    // This component renders the keyboard with the used letters
+    // at the bottom of the screen
     function DrawUsedLetterBoard() {
 
             // Draw the alphabet tiles
@@ -249,6 +254,8 @@
             )
         }
 
+    // This is a React Component that catches other components
+    // and renders under myRoot.render
     function App() {
 
         addColorIndicatorsToGameGrid();
