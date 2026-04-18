@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Component Demo</title>
+    <style type="text/css">
+        .emp {border: 1px solid #34B078; padding: 10px; max-width: 150px; text-align: center;
+                display:inline-block}
+        .emp p {padding: 0; margin: 2px 0;   }
+    </style>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>  <!-- placeholder for React DOM -->
+    
+    <script type="text/babel">
+    // props will have name, userID
+    function Employee (props)
+    {
+       //return  <div className= 'emp'><p>{props.name}</p><p>ID: {props.userID}</p></div> 
+       return  <div className= 'emp'><p>{props.children}</p><p>ID: {props.userID}</p></div> 
+    }
+    
+    function Employee2 ({userID, children})
+    {
+        var pick = () => alert("You picked: " + children)
+       return  <div className= 'emp'>
+                    <p>{children}</p>
+                    <p>ID: {userID}</p>
+                    <button onClick = {pick}>Pick {children}</button></div> 
+    }
+    
+    //var emp1 = <Employee name='sally' userID='101' />
+    //var emp1 = <Employee userID='101'>Sally</Employee>
+    //var emp2 = <Employee2 userID='101'>Sally</Employee2>
+    
+    var group = <><Employee2 userID='101'>Sally</Employee2> <Employee2 userID='102'>Sam</Employee2></>
+    const myroot = ReactDOM.createRoot(document.getElementById("root"));
+    myroot.render(group);
+    
+    </script>
+</body>
+</html>
