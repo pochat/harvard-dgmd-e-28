@@ -65,7 +65,6 @@ function Group() {
 
 // App is the main function that gathers all components
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <div>
