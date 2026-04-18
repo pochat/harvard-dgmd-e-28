@@ -10,13 +10,14 @@ body {
   justify-content: center;
   align-items: center;
   color: #ffffff;
+  font-family: serif;
   font-size: 2rem;
   font-weight: bold;
   border: solid 2px black;
 }
 
 .block:hover {
-  opacity: 0.5;
+  opacity: 0.3;
   cursor: pointer;
 }
 
@@ -32,7 +33,7 @@ body {
 
 .black { background-color: #000000; }
 .blue  { background-color: #0047AB; }
-.red   { background-color: #C41E3A; }
+.salmon   { background-color: #C41E3A; }
 .yellow  { background-color: #B8860B; }
 
 
