@@ -21,8 +21,15 @@ button:hover {
   height: 80vh;
 }
 
+input {
+  margin: 20px 0;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
 .navigation-container {
-  background-color: #333;
   overflow: hidden;
   display: flex;
   justify-content: space-between;
