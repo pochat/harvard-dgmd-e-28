@@ -1,16 +1,11 @@
 import { useState } from 'react'
 import './App.css'
 
-/////////////////////////////////////
-// Global variables
-/////////////////////////////////////
-const CITIES = ['Boston', 'Vancouver', 'Dehli', 'Mexico']
-
 
 /////////////////////////////////////
-// Add city after input - Component
+// Add city after user input - Component
 /////////////////////////////////////
-function AddCity() {
+function AddCity({ onAdd }) {
 
     // Hook for new city from the input
     const [inputCity, setInputCity] = useState('')
@@ -18,11 +13,11 @@ function AddCity() {
     // Logic for the input value
     function addCityToArray(e) {
 
-        // Reassign
-        setInputCity = e.target.addCity.value;
-
         // prevent browser from reloading the page
         e.preventDefault();
+
+        // Calls addCity from MyApp()
+        onAdd(inputCity)
 
         // debug
         console.log("Handle guess value:", setInputCity);
@@ -59,16 +54,27 @@ function AddCity() {
 /////////////////////////////////////
 function MyApp() {
 
-    const [city, setCity] = useState(CITIES[0])
+    // Set the original hooks
+    const [cities, setCities] = useState(['Boston', 'Vancouver'])
+    
+    // const [city, setCity] = useState(CITIES[0])
+    // Tracks which city is selected in the dropdown
+    const [city, setCity] = useState('Boston') // first in menu
 
+    // Function that adds new city to cities array
+    // Like a push, but more like merge/concat
+    function addCity(newCity) {
+        setCities([...cities, newCity])
+    }
+    
     return (
         <>
-        <AddCity />
 
+        <AddCity onAdd={addCity} />
             <div className='container'>
                 <h2>2. Dropdown with Cities</h2>           
                 <select onChange={(e) => setCity(e.target.value)}>
-                    {CITIES.map(item => <option key={item}>{item}</option>)}
+                    {cities.map(item => <option key={item}>{item}</option>)}
                 </select>
                 <p className='results'>Selected { city }</p>
             </div>
