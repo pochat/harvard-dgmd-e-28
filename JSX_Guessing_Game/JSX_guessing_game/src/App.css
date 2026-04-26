@@ -4,7 +4,7 @@ button {
   cursor: pointer;
   color: white;
   border: none;
-  background-color: #4caf4f00;
+  background-color: #145fd951;
 }
 
 button:hover {
@@ -34,4 +34,23 @@ button:hover {
   color: white;
   text-decoration: none;
   padding: 5px 20px;
+}
+
+.settings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-top: 20px;
+  gap: 20px;
+  border: 1px solid #6b6b6b;
+  border-radius: 10px;
+}
+
+.settings-container {
+  gap: 10px;
+  border: 1px solid #3d3d3d;
+  padding: 10px;
+  border-radius: 10px;
+
 }
