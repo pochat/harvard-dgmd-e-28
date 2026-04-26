@@ -21,11 +21,17 @@ button:hover {
   height: 80vh;
 }
 
-.navbar {
+.navigation-container {
   background-color: #333;
   overflow: hidden;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 14px 20px;
+}
+
+.navigation-container a {
+  color: white;
+  text-decoration: none;
+  padding: 5px 20px;
 }
