@@ -60,6 +60,11 @@ function EnterUserGuess() {
         // Read the input data
         const guess = e.target.userGuess.value;
         
+        // If empty
+        if (guess === '') {
+            return // fail early
+        }
+        
         // Clear the input
         e.target.userGuess.value = ''
 
@@ -74,8 +79,8 @@ function EnterUserGuess() {
 
     return(
         <div>
-            <form method="post" onSubmit={handleGuess}>
-                <input type="text" name="userGuess" placeholder="Enter your best guess"/>
+            <form method="post" onSubmit={ handleGuess }>
+                <input type="number" name="userGuess" placeholder="Enter your best guess"/>
                 <button type="submit">Is it this number?</button>
 
             </form>
