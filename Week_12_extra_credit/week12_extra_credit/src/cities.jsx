@@ -30,15 +30,19 @@ function AddCity({ onAdd }) {
             {/* Title */}
             <h2>Step 1: Add a city</h2>           
 
-            {/* Input form to accept new cities */}
+            {/* Input form starts: onSubmit calls addCityToArray when button is clicked */}
             <form method="post" onSubmit={ addCityToArray }>
 
                 <div className='input-container'>
+                    {/* onChange renders after every keypress and updates inputCity state */}
                     <input onChange={(e) => setInputCity(e.target.value)} />
+
+                    {/* type="submit" triggers the form's onSubmit event */}
                     <button type="submit">Add City</button>
                 </div> 
 
-                {/* Render realtime */}
+                {/* Displays inputCity state in realtime as user types */}
+                {/* If inputCity is empty, show "___" as a placeholder */}
                 <div>
                     <h2>You're adding: {inputCity || "___"}</h2>
                 </div>
@@ -70,6 +74,7 @@ function MyApp() {
     return (
         <>
 
+        {/* Prop for function AddCity({ onAdd }) */}
         <AddCity onAdd={addCity} />
             <div className='container'>
                 <h2>2. Dropdown with Cities</h2>           
