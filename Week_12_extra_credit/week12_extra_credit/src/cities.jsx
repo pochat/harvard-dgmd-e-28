@@ -2,6 +2,30 @@ import { useState } from 'react'
 import './App.css'
 
 
+function Header() {
+  const steps = [
+    "Enter a new city",
+    "You should see it as you type",
+    "Hit Enter",
+    "The new city should appear in the list",
+    "The new city should appear in the dropdown menu"
+  ];
+
+  return (
+    <>
+      <h1>Extra Credit Assignment - Cities</h1>
+      <p>Instructions:</p>
+
+      <ol>
+        {steps.map((step, index) => (
+          <li key={index}>{step}</li>
+        ))}
+      </ol>
+    </>
+  );
+}
+
+
 /////////////////////////////////////
 // Add city after user input - Component
 /////////////////////////////////////
@@ -26,7 +50,7 @@ function AddCity({ onAdd }) {
 
     return(
         <>
-        <div className='container'>
+        <div>
             {/* Title */}
             <h2>Step 1: Add a city</h2>           
 
@@ -74,16 +98,33 @@ function MyApp() {
     return (
         <>
 
-        {/* Prop for function AddCity({ onAdd }) */}
-        <AddCity onAdd={addCity} />
-            <div className='container'>
-                <h2>2. Dropdown with Cities</h2>           
-                <select onChange={(e) => setCity(e.target.value)}>
+
+            <div className="container">
+                
+                {/* Header */}
+                <Header />
+                
+                {/* Prop for function AddCity({ onAdd }) */}
+                <AddCity onAdd={addCity} />
+
+                {/* Render list of cities */}
+                <div className='listOfCities'>
+                    <h2>List of Cities:</h2>
+                    <ul>
+                    {cities.map(item => <li key={item}>{item}</li>)}
+                    </ul>
+                </div>
+
+                {/* Render Dropdown menu from originall in class assigment */}
+                <div className='dropdownMenu'>
+                    <h2>Step 2. Dropdown with Cities</h2>           
+                    <select onChange={(e) => setCity(e.target.value)}>
                     {cities.map(item => <option key={item}>{item}</option>)}
-                </select>
-                <p className='results'>Selected { city }</p>
+                    </select>
+
+                    <p className='results'>Selected {city}</p>
+                </div>
             </div>
-           
         </>
     )
 }

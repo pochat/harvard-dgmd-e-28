@@ -10,16 +10,25 @@ button {
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0; 
   text-align: center;
-  margin-top: 50px;
-  padding: 20px;
+
 }
 
-.results {
+.dropdownMenu {
+  width: 300px;
+  padding: 12px 20px;
+  margin: 20px 20px;
   margin-top: 20px;
+  border: #3f3f3f 1px solid;
+  border-radius: 10px;
 }
-
-
 
 input {
   width: 200px;
@@ -36,6 +45,23 @@ input {
   align-items: center;
 }
 
+.listOfCities {
+  width: 300px;
+  padding: 12px 20px;
+  margin: 20px 20px;
+  margin-top: 20px;
+  border: #3f3f3f 1px solid;
+  border-radius: 10px;
+}
+
+ol {
+  text-align: left;
+}
+
+.results {
+margin-top: 20px;
+}
+
 select {
   width: 200px;
   padding: 12px 20px;
@@ -44,4 +70,9 @@ select {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
 }
