@@ -6,7 +6,7 @@ function TestingProps(props) {
 
   return(
     <>
-     <h2>Testing props: {props.lastName}</h2>
+     <h2>Testing props: {props.lastName.toUpperCase()}</h2>
     </>
   )
 }
