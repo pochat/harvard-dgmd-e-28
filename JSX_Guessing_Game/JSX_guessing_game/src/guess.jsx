@@ -5,6 +5,10 @@ import { useState } from 'react'
 const DEFAULT_GUESSES = 5
 const DEFAULT_MIN_RANGE = 0
 const DEFAULT_MAX_RANGE = 10
+const GUESS_LOW = 'Too Low'
+const GUESS_HIGH = 'Too High'
+const GUESS_CORRECT = 'Correct. You guessed it!'
+const GUESS_OUT_OF_RANGE = 'Your guess is out of range'
 
 // Navigation bar at the top or the screen
 function Nav() {
@@ -30,6 +34,10 @@ function Home() {
             <h1> Guess a number between { localStorage.getItem('minRange') } and {localStorage.getItem('maxRange')}
             </h1>
             <p>You have { localStorage.guesses} chances to guess the right number. </p>
+            
+            {/* Load component with input Logic */}
+            <EnterUserGuess />
+
         </div>
     )
 }
@@ -67,25 +75,40 @@ function EnterUserGuess() {
         
         // Clear the input
         e.target.userGuess.value = ''
-
+        
+        // Game logic (too low or too high)
         if ( guess < numberToGuess) {
-            setResult("Too Low")
+            setResult(GUESS_LOW)
         } else if (guess > numberToGuess) {
-            setResult("Too high")
+            setResult(GUESS_HIGH)
+        } else if ( guess > maxRange)  {
+            setResult(GUESS_OUT_OF_RANGE)
         } else {
-            setResult("Correct!")
+            setResult(GUESS_CORRECT)
         }
+
+        
     }
+
+    // Assign colors if result is too high or low
+        let resultColor = null;
+
+        if (result === GUESS_LOW || result === GUESS_HIGH) {
+            resultColor = "red"
+        } else {
+            resultColor = "green"
+        }
 
     return(
         <div>
             <form method="post" onSubmit={ handleGuess }>
                 <input type="number" name="userGuess" placeholder="Enter your best guess"/>
-                <button type="submit">Is it this number?</button>
+                <button type="submit">Guess</button>
+
 
             </form>
 
-            <h3>{ result }</h3>
+            <h3 style={{ color: resultColor }}>{ result }</h3>
 
         </div>
     )
@@ -196,7 +219,7 @@ function Settings() {
 // Stats logic
 function Stats() {
     return(
-        <h1>Hello from stats component</h1>
+        <h1>Hello from the Stats component</h1>
     )
 }
 
@@ -217,7 +240,6 @@ function MyApp() {
                     <Route path="/settings" element={ <Settings/> } />
                     <Route path="/stats" element={ <Stats/> } />
                 </Routes>
-                <EnterUserGuess />
             </div>
             
         </div>
