@@ -8,7 +8,7 @@ const DEFAULT_MAX_RANGE = 10
 const GUESS_LOW = 'Too Low'
 const GUESS_HIGH = 'Too High'
 const GUESS_CORRECT = 'Correct. You guessed it!'
-const GUESS_OUT_OF_RANGE = 'Your guess is out of range'
+const GUESS_OUT_OF_RANGE = 'Your guess is out of range.'
 
 // Navigation bar at the top or the screen
 function Nav() {
@@ -49,7 +49,7 @@ function EnterUserGuess() {
         const min = Number(localStorage.getItem('minRange'))
         const max = Number(localStorage.getItem('maxRange'))
 
-        // Pick a number to guess
+        // Pick a random number to guess
         return Math.floor(Math.random() * (max - min)) + min
     })
 
@@ -59,6 +59,7 @@ function EnterUserGuess() {
 
     // Set the state for the result
     const [ result, setResult ] = useState("")
+    
 
     function handleGuess(e) {
 
@@ -66,7 +67,9 @@ function EnterUserGuess() {
         e.preventDefault();
 
         // Read the input data
-        const guess = e.target.userGuess.value;
+        const guess = Number(e.target.userGuess.value);
+
+        const outOfRange = Number(localStorage.getItem('maxRange'))
         
         // If empty
         if (guess === '') {
@@ -77,23 +80,22 @@ function EnterUserGuess() {
         e.target.userGuess.value = ''
         
         // Game logic (too low or too high)
-        if ( guess < numberToGuess) {
+        if ( guess > outOfRange) {
+            setResult(GUESS_OUT_OF_RANGE)
+        } else if ( guess < numberToGuess) {
             setResult(GUESS_LOW)
         } else if (guess > numberToGuess) {
             setResult(GUESS_HIGH)
-        } else if ( guess > maxRange)  {
-            setResult(GUESS_OUT_OF_RANGE)
         } else {
             setResult(GUESS_CORRECT)
         }
 
-        
     }
 
     // Assign colors if result is too high or low
         let resultColor = null;
 
-        if (result === GUESS_LOW || result === GUESS_HIGH) {
+        if (result === GUESS_LOW || result === GUESS_HIGH || result === GUESS_OUT_OF_RANGE) {
             resultColor = "red"
         } else {
             resultColor = "green"
