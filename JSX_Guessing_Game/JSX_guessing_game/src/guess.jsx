@@ -126,18 +126,16 @@ function EnterUserGuess({ guessesLeft, setGuessesLeft, result, setResult}) {
 
         e.target.userGuess.value = '';
 
+        ////////////////////////////////////////////////////////////////
+        // Game Conditions
+        // NOTE: This order matters. List wrong first
+        ////////////////////////////////////////////////////////////////
+
         // Out of range check FIRST
         if (guess < min || guess > max) {
             setResult(GUESS_OUT_OF_RANGE);
             const current = Number(localStorage.getItem("maxGuesses")) || DEFAULT_GUESSES;
             localStorage.setItem("maxGuesses", current - 1);
-            return;
-        }
-
-        // Out of remaining guesses
-        if ( guessesLeft <= 1) { // Set to 1 because the state shows 0
-            setResult(GUESS_OUT_OF_GUESSES)
-            setGuessesLeft(0)
             return;
         }
 
@@ -148,7 +146,32 @@ function EnterUserGuess({ guessesLeft, setGuessesLeft, result, setResult}) {
             setResult(GUESS_HIGH);
         } else {
             setResult(GUESS_CORRECT);
+
+            // Save game stats to local storage
+
+            // Number of games won
+            const gamesWon = Number(localStorage.getItem("gamesWon")) || 0
+            localStorage.setItem("gamesWon", gamesWon + 1)
+
+            // Average number of guesses needed  
+            const totalGuesses = Number(localStorage.getItem("totalGuesses")) || 0
+            const guessesUsed = Number(localStorage.getItem("maxGuesses")) - guessesLeft
+            localStorage.setItem("totalGuesses", totalGuesses + totalGuesses + guessesUsed)
+
+            // Number of games played
+            const gamesPlayed = Number(localStorage.getItem("gamesPlayed")) || 0
+            localStorage.setItem("gamesPlayed", gamesPlayed + 1)
+
+            return; // Leave this return; otherwise, stats won't work.
         }
+
+        // Out of remaining guesses
+        if ( guessesLeft <= 1) { // Set to 1 because the state shows 0
+            setResult(GUESS_OUT_OF_GUESSES)
+            setGuessesLeft(0)
+            return; // Stop right here, bro.
+        }
+
 
         // deduct guess after each attempt
         const newGuessesLeft = guessesLeft - 1
@@ -298,9 +321,23 @@ function Settings( {resetSettings} ) {
 //////////////////////////////////////
 // Game Stats logic
 //////////////////////////////////////
-function Stats() {
-    return(
-        <h1>Hello from the Stats component</h1>
+function GameStats() {
+    const gamesWon = Number(localStorage.getItem("gamesWon")) || 0
+    const totalGuesses = Number(localStorage.getItem("totalGuesses")) || 0
+    let average = null
+    
+    // Eliminate decimals
+    // 3.33333. -> 3
+    if (gamesWon > 0) {
+        average = Math.floor(totalGuesses / gamesWon)
+    }
+
+    return (
+        <div>
+            <h1>Game Stats</h1>
+            <p>Games won: {gamesWon}</p>
+            <p>Average number of guesses needed: {average}</p>
+        </div>
     )
 }
 
@@ -330,7 +367,7 @@ function MyApp() {
                 <Routes>
                     <Route path="/" element={ <Home/> } />
                     <Route path="/settings" element={ <Settings/> } />
-                    <Route path="/stats" element={ <Stats/> } />
+                    <Route path="/stats" element={ <GameStats/> } />
                 </Routes>
             </div>
             
