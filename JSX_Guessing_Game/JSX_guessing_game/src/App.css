@@ -30,9 +30,10 @@ button:hover {
 }
 
 .button-reset {
-  background-color: #e11153;
+  background-color: #1d0e1300;
   padding: 10px 20px;
   margin-top: 20px;
+  border: 1px solid #e11153;
   border-radius: 10px;
   font-weight: 600;
 }

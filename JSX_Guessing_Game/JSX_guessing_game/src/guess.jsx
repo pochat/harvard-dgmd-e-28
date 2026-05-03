@@ -326,6 +326,8 @@ function Settings( {resetSettings} ) {
 // Game Stats logic
 //////////////////////////////////////
 function GameStats() {
+
+    
     const gamesWon = Number(localStorage.getItem("gamesWon")) || 0
     const totalGuesses = Number(localStorage.getItem("totalGuesses")) || 0
     let average = null
@@ -347,7 +349,7 @@ function GameStats() {
             <p>Games won: {gamesWon}</p>
             <p>Average number of guesses needed: {average}</p>
 
-            <button className="button-reset">
+            <button className="button-reset" onClick={resetGameStats}>
                 Reset stats
             </button>
         </div>
