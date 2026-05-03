@@ -66,10 +66,17 @@ function Home( { resetSettings }) {
     return(
         <div>
             {/* Read the values from the localStorage */}
-            <h1> Guess a number between { localStorage.getItem('minRange') || DEFAULT_MIN_RANGE } and {localStorage.getItem('maxRange') || DEFAULT_MAX_RANGE }
-            </h1>
-            <p>You have { guessesLeft || DEFAULT_GUESSES } chances to guess the right number. </p>
-            
+
+            {(result !== GUESS_CORRECT && result !== GUESS_OUT_OF_GUESSES) &&
+
+            <div>
+                <h1> Guess a number between { localStorage.getItem('minRange') || DEFAULT_MIN_RANGE } and {localStorage.getItem('maxRange') || DEFAULT_MAX_RANGE }
+                </h1>
+                <p>You have { guessesLeft || DEFAULT_GUESSES } chances to guess the right number. </p>
+            </div>
+            }
+
+
             {/* Load component with input Logic with props */}
 
             <EnterUserGuess
@@ -85,7 +92,7 @@ function Home( { resetSettings }) {
             {/* This button must be visible after number of guesses = 1 */}
             {/* React documentation: https://legacy.reactjs.org/docs/conditional-rendering.html */}
             {(guessesLeft === 0 || result === GUESS_CORRECT) &&
-                <button onClick={ handleRestart }>Restart</button>
+                <button className="button-restart" onClick={ handleRestart }>Restart</button>
             }
 
         </div>
@@ -191,10 +198,13 @@ function EnterUserGuess({ guessesLeft, setGuessesLeft, result, setResult}) {
 
     return(
         <div>
+
+            {(result !== GUESS_CORRECT && result !== GUESS_OUT_OF_GUESSES) &&
             <form method="post" onSubmit={ handleGuess }>
                 <input type="number" name="userGuess" placeholder="Enter your best guess"/>
                 <button type="submit">Guess</button>
             </form>
+            }
 
             <h3 style={{ color: resultColor }}>{ result }</h3>
 
