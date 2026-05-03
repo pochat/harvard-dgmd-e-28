@@ -39,6 +39,11 @@ function Home( { resetSettings }) {
         Number(localStorage.getItem("maxGuesses")) || DEFAULT_GUESSES
     )
 
+    // This state is needed to reset the math.random after
+    // the user presses Restart 
+    const [gameKey, setGameKey] = useState(0)
+
+
     function resetSettings() {
         setGuessesLeft(DEFAULT_GUESSES)
         localStorage.setItem("maxGuesses", DEFAULT_GUESSES)
@@ -51,6 +56,11 @@ function Home( { resetSettings }) {
     function handleRestart() {
         resetSettings();
         setResult('');
+        // Adding + 1 tells react it is a new component
+        // so the Math Random runs again
+        // Weird, but here is an explanation
+        // https://www.google.com/search?q=react+use+key+to+reload+component&rlz=1C5CHFA_enCA1142CA1142&oq=react+use+key+to+reload+component&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRhA0gEINzQyNWowajeoAgCwAgA&sourceid=chrome&ie=UTF-8
+        setGameKey(gameKey + 1)
     }
 
     return(
@@ -64,6 +74,7 @@ function Home( { resetSettings }) {
 
             <EnterUserGuess
 
+                key={gameKey} // To track the key value and run Math Random
                 guessesLeft={guessesLeft}
                 setGuessesLeft={setGuessesLeft}
                 result={result}
@@ -73,10 +84,8 @@ function Home( { resetSettings }) {
 
             {/* This button must be visible after number of guesses = 1 */}
             {/* React documentation: https://legacy.reactjs.org/docs/conditional-rendering.html */}
-            {guessesLeft === 0 &&
-                <button onClick={ handleRestart }>
-                 Restart
-                </button>
+            {(guessesLeft === 0 || result === GUESS_CORRECT) &&
+                <button onClick={ handleRestart }>Restart</button>
             }
 
         </div>
@@ -165,6 +174,12 @@ function EnterUserGuess({ guessesLeft, setGuessesLeft, result, setResult}) {
             </form>
 
             <h3 style={{ color: resultColor }}>{ result }</h3>
+
+            {/* Render only if user ran out of guesses */}
+            {/* React documentation: https://legacy.reactjs.org/docs/conditional-rendering.html */}
+            {(result === GUESS_OUT_OF_GUESSES || result === GUESS_CORRECT) &&
+                <h2>The number was: {numberToGuess}</h2>
+            }
 
         </div>
     )
