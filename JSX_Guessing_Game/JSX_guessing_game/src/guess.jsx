@@ -14,11 +14,26 @@ const GUESS_OUT_OF_GUESSES = 'Darn, you are out of guesses.'
 //////////////////////////////////////
 // Navigation bar at the top or the screen
 //////////////////////////////////////
-function Nav() {
+function Nav( { homeKey, setHomeKey }) {
+
+
+    function handleHomeKey() {
+
+        // Debug to see if it's reached
+        // console.log("Called homeKey");
+        
+        
+        // Adding + 1 tells react it is a new component
+        // so it refreshes again
+        // Weird, but here is an explanation
+        // https://www.google.com/search?q=react+use+key+to+reload+component&rlz=1C5CHFA_enCA1142CA1142&oq=react+use+key+to+reload+component&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRhA0gEINzQyNWowajeoAgCwAgA&sourceid=chrome&ie=UTF-8
+        setHomeKey(homeKey + 1)
+    }
+
     return(
         <>
         <div className="navigation-container">
-            <Link to="/"> Home </Link>
+            <Link to="/" onClick={handleHomeKey}> Home </Link>
             <div>
                 <Link to="/stats"> Stats </Link>
                 <Link to="/settings"> Settings </Link>
@@ -327,9 +342,12 @@ function Settings( {resetSettings} ) {
 //////////////////////////////////////
 function GameStats() {
 
+
+    // Set state for SPA feeling
+    const [gamesWon, setGameWon] = useState(Number(localStorage.getItem("gamesWon")) || 0) 
+    const [gamesPlayed, setGamesPlayed] = useState( Number(localStorage.getItem("gamesPlayed")) || 0)
+    const [totalGuesses, setTotalGuesses] = useState( Number(localStorage.getItem("totalGuesses")) || 0)
     
-    const gamesWon = Number(localStorage.getItem("gamesWon")) || 0
-    const totalGuesses = Number(localStorage.getItem("totalGuesses")) || 0
     let average = null
     
     // Eliminate decimals from the average results
@@ -339,15 +357,17 @@ function GameStats() {
     }
 
     function resetGameStats() {
-        localStorage.setItem("gamesWon", 0)
-        localStorage.setItem("totalGuesses", 0)
+        setGameWon(localStorage.setItem("gamesWon", 0) || 0)
+        setGamesPlayed(localStorage.setItem("gamesPlayed", 0) || 0)
+        setTotalGuesses(localStorage.setItem("totalGuesses", 0 || 0))
     }
 
     return (
         <div>
             <h1>Game Stats</h1>
+            <p>Games played: {gamesPlayed}</p>
             <p>Games won: {gamesWon}</p>
-            <p>Average number of guesses needed: {average}</p>
+            <p>Average number of guesses needed: {average || 0}</p>
 
             <button className="button-reset" onClick={resetGameStats}>
                 Reset stats
@@ -360,6 +380,8 @@ function GameStats() {
 // Grouping all game functionality in the MyApp component
 //////////////////////////////////////
 function MyApp() {
+
+    const [homeKey, setHomeKey] = useState(0)
 
     // Run this code after the component appear on the screen
     useEffect(() => {
@@ -377,10 +399,10 @@ function MyApp() {
 
     return (
         <div>
-            <Nav />
+            <Nav setHomeKey={setHomeKey} homeKey={homeKey} /> 
             <div className="container">
                 <Routes>
-                    <Route path="/" element={ <Home/> } />
+                    <Route path="/" element={ <Home key={homeKey}/> } />
                     <Route path="/settings" element={ <Settings/> } />
                     <Route path="/stats" element={ <GameStats/> } />
                 </Routes>
