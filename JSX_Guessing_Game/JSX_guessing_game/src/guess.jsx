@@ -10,7 +10,9 @@ const GUESS_HIGH = 'Too High'
 const GUESS_CORRECT = 'Correct. You guessed it!'
 const GUESS_OUT_OF_RANGE = 'Your guess is out of range.'
 
+//////////////////////////////////////
 // Navigation bar at the top or the screen
+//////////////////////////////////////
 function Nav() {
     return(
         <>
@@ -25,24 +27,39 @@ function Nav() {
     )
 }
 
+//////////////////////////////////////
 // Main landing page
+//////////////////////////////////////
 function Home() {
+
+    const [guessesLeft, setGuessesLeft] = useState(
+        Number(localStorage.getItem("maxGuesses")) || DEFAULT_GUESSES
+    )
 
     return(
         <div>
             {/* Read the values from the localStorage */}
             <h1> Guess a number between { localStorage.getItem('minRange') || DEFAULT_MIN_RANGE } and {localStorage.getItem('maxRange') || DEFAULT_MAX_RANGE }
             </h1>
-            <p>You have { localStorage.guesses || DEFAULT_GUESSES } chances to guess the right number. </p>
+            <p>You have { guessesLeft || DEFAULT_GUESSES } chances to guess the right number. </p>
             
-            {/* Load component with input Logic */}
-            <EnterUserGuess />
+            {/* Load component with input Logic with props */}
+
+            <EnterUserGuess
+
+                guessesLeft={guessesLeft}
+                setGuessesLeft={setGuessesLeft}
+
+            />
 
         </div>
     )
 }
 
-function EnterUserGuess() {
+//////////////////////////////////////
+// This component is for the user to enter their number
+//////////////////////////////////////
+function EnterUserGuess({ guessesLeft, setGuessesLeft}) {
 
     // Set state for the Number to Guess
     const [numberToGuess] = useState(() => {
@@ -53,17 +70,8 @@ function EnterUserGuess() {
         return Math.floor(Math.random() * (max - min)) + min
     })
 
-    const [retrieveMaxNumberOfGuesses, setRetrieveMaxNumberOfGuesses ] = useState(localStorage.getItem('guesses'))
-
-
-    // useEffect(() => {
-    //     console.log("NOG: ", retrieveMaxNumberOfGuesses);
-    // })
-
-    function deductGuess() {
-        let deductGuess = setRetrieveMaxNumberOfGuesses - 1
-        console.log("deduct guess", deductGuess);
-    }
+    // Re-assign the argument to a local variable
+    let guessRemaining = setGuessesLeft
 
     // Debug
     console.log("Number to Guess:", numberToGuess)
@@ -75,44 +83,38 @@ function EnterUserGuess() {
 
     function handleGuess(e) {
 
-        // prevent browser from reloading the page
+        // Don't refresh the page after submit
         e.preventDefault();
 
-        // Read the input data
         const guess = Number(e.target.userGuess.value);
+        const min = Number(localStorage.getItem('minRange'));
+        const max = Number(localStorage.getItem('maxRange'));
 
-        const outOfRange = Number(localStorage.getItem('maxRange'))
-        
-        // If empty
-        if (guess === '') {
-            return // fail early
+        if (isNaN(guess)) return;
+
+        e.target.userGuess.value = '';
+
+        // Out of range check FIRST
+        if (guess < min || guess > max) {
+            setResult(GUESS_OUT_OF_RANGE);
+            const current = Number(localStorage.getItem("maxGuesses")) || DEFAULT_GUESSES;
+            localStorage.setItem("maxGuesses", current - 1);
+            return;
         }
-        
-        // Clear the input
-        e.target.userGuess.value = ''
-        
 
-        // Game logic (too low or too high)
-        if ( guess > outOfRange) {
-            setResult(GUESS_OUT_OF_RANGE)
-            deductGuess()
-        
-            
-        } else if ( guess < numberToGuess) {
-            setResult(GUESS_LOW)
-            deductGuess()
- 
-            
+        if (guess < numberToGuess) {
+            setResult(GUESS_LOW);
         } else if (guess > numberToGuess) {
-            setResult(GUESS_HIGH)
-            deductGuess()
-
-            
+            setResult(GUESS_HIGH);
         } else {
-            setResult(GUESS_CORRECT)
-            deductGuess()
+            setResult(GUESS_CORRECT);
         }
 
+        // deduct guess after each attempt
+        const newGuessesLeft = guessesLeft - 1
+        setGuessesLeft(newGuessesLeft)
+        localStorage.setItem("guessRemaining", newGuessesLeft)
+   
     }
 
     // Assign colors if result is too high or low
@@ -138,16 +140,20 @@ function EnterUserGuess() {
 }
 
 
-// Settings route logic
+//////////////////////////////////////
+// Game settings logic
+//////////////////////////////////////
 function Settings() {
 
     // Note: Hooks cannot be inside functions
     ////////////////////////////////////////////
     // Set states for Number of guesses
     ////////////////////////////////////////////
-    const [numberOfGuesses, setNumberOfGuesses] = useState(() => {
-        return Number(localStorage.getItem("guesses")) || DEFAULT_GUESSES
-    })
+    const [numberOfGuesses, setNumberOfGuesses] = useState(
+        () => {
+            return Number(localStorage.getItem("maxGuesses")) || DEFAULT_GUESSES
+        }
+    )
 
     // User to increase / decrease the number of guesses
     function changeGuesses(newGuessNumber) {
@@ -159,7 +165,7 @@ function Settings() {
         }
 
         setNumberOfGuesses(currentGuessNumber)
-        localStorage.setItem("guesses", currentGuessNumber)
+        localStorage.setItem("maxGuesses", currentGuessNumber)
     }
     
     ////////////////////////////////////////////
@@ -188,14 +194,18 @@ function Settings() {
     // Reset settings
     ////////////////////////////////////////////
     function resetSettings() {
-        localStorage.removeItem("guesses")
-        localStorage.removeItem("minRange")
-        localStorage.removeItem("maxRange")
 
-        // Call the states again to reset
-        setNumberOfGuesses(DEFAULT_GUESSES)
-        setMinRange(DEFAULT_MIN_RANGE)
-        setMaxRange(DEFAULT_MAX_RANGE)
+        // Update the state
+        setNumberOfGuesses(DEFAULT_GUESSES);
+        setMinRange(DEFAULT_MIN_RANGE);
+        setMaxRange(DEFAULT_MAX_RANGE);
+
+        // Rewrite to local storage
+        localStorage.setItem("maxGuesses", DEFAULT_GUESSES)
+        localStorage.setItem("minRange", DEFAULT_MIN_RANGE)
+        localStorage.setItem("maxRange", DEFAULT_MAX_RANGE)
+        localStorage.removeItem("guessRemaining")
+
     }
     
     return(
@@ -232,27 +242,40 @@ function Settings() {
 
                 {/* Reset */}
                 <div className="settings">
-                    <button onClick={resetSettings}> Reset </button>
+                    <button onClick={ resetSettings }> Reset </button>
                 </div>
             </div>
         </>
     )
 }
 
-// Stats logic
+//////////////////////////////////////
+// Game Stats logic
+//////////////////////////////////////
 function Stats() {
     return(
         <h1>Hello from the Stats component</h1>
     )
 }
 
-
-// Grouping all in this componenent
+//////////////////////////////////////
+// Grouping all game functionality in the MyApp component
+//////////////////////////////////////
 function MyApp() {
 
-    if (!localStorage.getItem("guesses")) localStorage.setItem("guesses", DEFAULT_GUESSES)
-    if (!localStorage.getItem("minRange")) localStorage.setItem("minRange", DEFAULT_MIN_RANGE)
-    if (!localStorage.getItem("maxRange")) localStorage.setItem("maxRange", DEFAULT_MAX_RANGE)
+    // Run this code after the component appear on the screen
+    useEffect(() => {
+        if (!localStorage.getItem("guessRemaining")) {
+            localStorage.setItem("guesses", DEFAULT_GUESSES);
+        }
+        if (!localStorage.getItem("minRange")) {
+            localStorage.setItem("minRange", DEFAULT_MIN_RANGE);
+        }
+        if (!localStorage.getItem("maxRange")) {
+            localStorage.setItem("maxRange", DEFAULT_MAX_RANGE);
+        }
+    }, []);
+
 
     return (
         <div>
