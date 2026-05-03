@@ -1,5 +1,5 @@
 import { Routes, Route, Link } from "react-router-dom"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Define global variables
 const DEFAULT_GUESSES = 5
@@ -31,9 +31,9 @@ function Home() {
     return(
         <div>
             {/* Read the values from the localStorage */}
-            <h1> Guess a number between { localStorage.getItem('minRange') } and {localStorage.getItem('maxRange')}
+            <h1> Guess a number between { localStorage.getItem('minRange') || DEFAULT_MIN_RANGE } and {localStorage.getItem('maxRange') || DEFAULT_MAX_RANGE }
             </h1>
-            <p>You have { localStorage.guesses} chances to guess the right number. </p>
+            <p>You have { localStorage.guesses || DEFAULT_GUESSES } chances to guess the right number. </p>
             
             {/* Load component with input Logic */}
             <EnterUserGuess />
@@ -52,6 +52,18 @@ function EnterUserGuess() {
         // Pick a random number to guess
         return Math.floor(Math.random() * (max - min)) + min
     })
+
+    const [retrieveMaxNumberOfGuesses, setRetrieveMaxNumberOfGuesses ] = useState(localStorage.getItem('guesses'))
+
+
+    // useEffect(() => {
+    //     console.log("NOG: ", retrieveMaxNumberOfGuesses);
+    // })
+
+    function deductGuess() {
+        let deductGuess = setRetrieveMaxNumberOfGuesses - 1
+        console.log("deduct guess", deductGuess);
+    }
 
     // Debug
     console.log("Number to Guess:", numberToGuess)
@@ -79,15 +91,26 @@ function EnterUserGuess() {
         // Clear the input
         e.target.userGuess.value = ''
         
+
         // Game logic (too low or too high)
         if ( guess > outOfRange) {
             setResult(GUESS_OUT_OF_RANGE)
+            deductGuess()
+        
+            
         } else if ( guess < numberToGuess) {
             setResult(GUESS_LOW)
+            deductGuess()
+ 
+            
         } else if (guess > numberToGuess) {
             setResult(GUESS_HIGH)
+            deductGuess()
+
+            
         } else {
             setResult(GUESS_CORRECT)
+            deductGuess()
         }
 
     }
@@ -106,8 +129,6 @@ function EnterUserGuess() {
             <form method="post" onSubmit={ handleGuess }>
                 <input type="number" name="userGuess" placeholder="Enter your best guess"/>
                 <button type="submit">Guess</button>
-
-
             </form>
 
             <h3 style={{ color: resultColor }}>{ result }</h3>
@@ -124,7 +145,7 @@ function Settings() {
     ////////////////////////////////////////////
     // Set states for Number of guesses
     ////////////////////////////////////////////
-    const [numberOfGuesses, setnumberOfGuesses] = useState(() => {
+    const [numberOfGuesses, setNumberOfGuesses] = useState(() => {
         return Number(localStorage.getItem("guesses")) || DEFAULT_GUESSES
     })
 
@@ -137,7 +158,7 @@ function Settings() {
             return // exit early
         }
 
-        setnumberOfGuesses(currentGuessNumber)
+        setNumberOfGuesses(currentGuessNumber)
         localStorage.setItem("guesses", currentGuessNumber)
     }
     
@@ -172,7 +193,7 @@ function Settings() {
         localStorage.removeItem("maxRange")
 
         // Call the states again to reset
-        setnumberOfGuesses(DEFAULT_GUESSES)
+        setNumberOfGuesses(DEFAULT_GUESSES)
         setMinRange(DEFAULT_MIN_RANGE)
         setMaxRange(DEFAULT_MAX_RANGE)
     }
@@ -184,7 +205,7 @@ function Settings() {
             <div className="settings-container">
                 {/* Number of Guesses */}
                 <div className="settings">
-                    <p>Guesses allowed = { numberOfGuesses }</p>
+                    <p>Max guesses = { numberOfGuesses }</p>
 
                     {/* By adding () => it waits for the button to be clicked */}
                     <button onClick={ () => changeGuesses(-1) }> - </button>
