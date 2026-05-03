@@ -44,18 +44,12 @@ function Home( { resetSettings }) {
     const [gameKey, setGameKey] = useState(0)
 
 
-    function resetSettings() {
-        setGuessesLeft(DEFAULT_GUESSES)
-        localStorage.setItem("maxGuesses", DEFAULT_GUESSES)
-        localStorage.setItem("minRange", DEFAULT_MIN_RANGE)
-        localStorage.setItem("maxRange", DEFAULT_MAX_RANGE)
-        localStorage.removeItem("guessRemaining")
-    }
-
     // Run these when the Restart button is pressed
     function handleRestart() {
-        resetSettings();
+
+        // Clear the result render
         setResult('');
+        
         // Adding + 1 tells react it is a new component
         // so the Math Random runs again
         // Weird, but here is an explanation
@@ -320,8 +314,8 @@ function Settings( {resetSettings} ) {
                 </div>
 
                 {/* Reset */}
-                <div className="settings">
-                    <button onClick={ resetSettings }> Reset </button>
+                <div>
+                    <button className="button-reset" onClick={ resetSettings }> Reset </button>
                 </div>
             </div>
         </>
@@ -336,10 +330,15 @@ function GameStats() {
     const totalGuesses = Number(localStorage.getItem("totalGuesses")) || 0
     let average = null
     
-    // Eliminate decimals
+    // Eliminate decimals from the average results
     // 3.33333. -> 3
     if (gamesWon > 0) {
         average = Math.floor(totalGuesses / gamesWon)
+    }
+
+    function resetGameStats() {
+        localStorage.setItem("gamesWon", 0)
+        localStorage.setItem("totalGuesses", 0)
     }
 
     return (
@@ -347,6 +346,10 @@ function GameStats() {
             <h1>Game Stats</h1>
             <p>Games won: {gamesWon}</p>
             <p>Average number of guesses needed: {average}</p>
+
+            <button className="button-reset">
+                Reset stats
+            </button>
         </div>
     )
 }

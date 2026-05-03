@@ -29,6 +29,14 @@ button:hover {
   font-weight: 600;
 }
 
+.button-reset {
+  background-color: #e11153;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
 input {
   margin: 20px 0;
   padding: 10px;
