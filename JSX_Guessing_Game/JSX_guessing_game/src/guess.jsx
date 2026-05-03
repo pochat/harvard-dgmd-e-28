@@ -1,7 +1,7 @@
 import { Routes, Route, Link } from "react-router-dom"
 import { useEffect, useState } from 'react'
 
-// Define global variables
+// Define global variables in one place
 const DEFAULT_GUESSES = 5
 const DEFAULT_MIN_RANGE = 0
 const DEFAULT_MAX_RANGE = 10
@@ -9,6 +9,7 @@ const GUESS_LOW = 'Too Low'
 const GUESS_HIGH = 'Too High'
 const GUESS_CORRECT = 'Correct. You guessed it!'
 const GUESS_OUT_OF_RANGE = 'Your guess is out of range.'
+const GUESS_OUT_OF_GUESSES = 'Darn, you are out of guesses.'
 
 //////////////////////////////////////
 // Navigation bar at the top or the screen
@@ -30,11 +31,27 @@ function Nav() {
 //////////////////////////////////////
 // Main landing page
 //////////////////////////////////////
-function Home() {
+function Home( { resetSettings }) {
 
+    // Set states
+    const [result, setResult] = useState("")
     const [guessesLeft, setGuessesLeft] = useState(
         Number(localStorage.getItem("maxGuesses")) || DEFAULT_GUESSES
     )
+
+    function resetSettings() {
+        setGuessesLeft(DEFAULT_GUESSES)
+        localStorage.setItem("maxGuesses", DEFAULT_GUESSES)
+        localStorage.setItem("minRange", DEFAULT_MIN_RANGE)
+        localStorage.setItem("maxRange", DEFAULT_MAX_RANGE)
+        localStorage.removeItem("guessRemaining")
+    }
+
+    // Run these when the Restart button is pressed
+    function handleRestart() {
+        resetSettings();
+        setResult('');
+    }
 
     return(
         <div>
@@ -49,8 +66,18 @@ function Home() {
 
                 guessesLeft={guessesLeft}
                 setGuessesLeft={setGuessesLeft}
+                result={result}
+                setResult={setResult}
 
             />
+
+            {/* This button must be visible after number of guesses = 1 */}
+            {/* React documentation: https://legacy.reactjs.org/docs/conditional-rendering.html */}
+            {guessesLeft === 0 &&
+                <button onClick={ handleRestart }>
+                 Restart
+                </button>
+            }
 
         </div>
     )
@@ -59,7 +86,7 @@ function Home() {
 //////////////////////////////////////
 // This component is for the user to enter their number
 //////////////////////////////////////
-function EnterUserGuess({ guessesLeft, setGuessesLeft}) {
+function EnterUserGuess({ guessesLeft, setGuessesLeft, result, setResult}) {
 
     // Set state for the Number to Guess
     const [numberToGuess] = useState(() => {
@@ -75,11 +102,7 @@ function EnterUserGuess({ guessesLeft, setGuessesLeft}) {
 
     // Debug
     console.log("Number to Guess:", numberToGuess)
-    
-
-    // Set the state for the result
-    const [ result, setResult ] = useState("")
-    
+    console.log('remaining guesses:' , guessesLeft);
 
     function handleGuess(e) {
 
@@ -102,6 +125,14 @@ function EnterUserGuess({ guessesLeft, setGuessesLeft}) {
             return;
         }
 
+        // Out of remaining guesses
+        if ( guessesLeft <= 1) { // Set to 1 because the state shows 0
+            setResult(GUESS_OUT_OF_GUESSES)
+            setGuessesLeft(0)
+            return;
+        }
+
+        // Logic for too low, high, or correct
         if (guess < numberToGuess) {
             setResult(GUESS_LOW);
         } else if (guess > numberToGuess) {
@@ -120,7 +151,7 @@ function EnterUserGuess({ guessesLeft, setGuessesLeft}) {
     // Assign colors if result is too high or low
         let resultColor = null;
 
-        if (result === GUESS_LOW || result === GUESS_HIGH || result === GUESS_OUT_OF_RANGE) {
+        if (result === GUESS_LOW || result === GUESS_HIGH || result === GUESS_OUT_OF_RANGE || result === GUESS_OUT_OF_GUESSES) {
             resultColor = "red"
         } else {
             resultColor = "green"
@@ -143,7 +174,7 @@ function EnterUserGuess({ guessesLeft, setGuessesLeft}) {
 //////////////////////////////////////
 // Game settings logic
 //////////////////////////////////////
-function Settings() {
+function Settings( {resetSettings} ) {
 
     // Note: Hooks cannot be inside functions
     ////////////////////////////////////////////
