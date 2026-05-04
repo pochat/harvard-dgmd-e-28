@@ -7,7 +7,7 @@ const DEFAULT_MIN_RANGE = 0
 const DEFAULT_MAX_RANGE = 10
 const GUESS_LOW = 'Too Low'
 const GUESS_HIGH = 'Too High'
-const GUESS_CORRECT = 'Correct. You guessed it!'
+const GUESS_CORRECT = '🎉 Correct! You guessed it! 🎉'
 const GUESS_OUT_OF_RANGE = 'Your guess is out of range.'
 const GUESS_OUT_OF_GUESSES = 'Darn, you are out of guesses.'
 
@@ -61,6 +61,9 @@ function Home( { resetSettings }) {
 
     // Run these when the Restart button is pressed
     function handleRestart() {
+
+        // Reset guesses
+        setGuessesLeft(Number(localStorage.getItem("maxGuesses")) || DEFAULT_GUESSES)
 
         // Clear the result render
         setResult('');
